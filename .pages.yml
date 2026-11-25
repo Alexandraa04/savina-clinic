@@ -1,0 +1,269 @@
+media:
+  input: assets
+  output: assets
+
+content:
+  - name: site_content
+    label: Контент сайта Савина Клиник
+    type: file
+    path: content.json
+    format: json
+    fields:
+      - name: clinic
+        label: Контакты и настройки клиники
+        type: object
+        fields:
+          - name: name
+            label: Название клиники
+            type: string
+          - name: phone
+            label: Телефон (отображаемый)
+            type: string
+          - name: phoneHref
+            label: Ссылка телефона (tel:...)
+            type: string
+          - name: address
+            label: Полный адрес
+            type: string
+          - name: addressShort
+            label: Краткий адрес (для шапки/бейджа)
+            type: string
+          - name: addressNote
+            label: Примечание к адресу (район, парковка)
+            type: string
+          - name: hours
+            label: Режим работы
+            type: string
+          - name: telegram
+            label: Ссылка на Telegram
+            type: string
+          - name: whatsapp
+            label: Ссылка на WhatsApp
+            type: string
+          - name: yandexReviewsUrl
+            label: Ссылка на Яндекс Карты
+            type: string
+          - name: licenseNumber
+            label: Номер медицинской лицензии
+            type: string
+          - name: licenseIssued
+            label: Кем и когда выдана лицензия
+            type: string
+          - name: web3formsKey
+            label: Ключ Web3Forms для отправки заявок на Email (необязательно)
+            type: string
+
+      - name: hero
+        label: Первый экран (Главный баннер)
+        type: object
+        fields:
+          - name: badgeLocation
+            label: Бейдж адреса
+            type: string
+          - name: badgePediatric
+            label: Бейдж детского приёма
+            type: string
+          - name: title
+            label: Главный заголовок (H1)
+            type: string
+          - name: subtitleLine1
+            label: Подзаголовок (строка 1)
+            type: string
+          - name: subtitleLine2
+            label: Подзаголовок (строка 2)
+            type: string
+          - name: quoteText
+            label: Цитата главного врача
+            type: text
+          - name: quoteAuthor
+            label: Автор цитаты
+            type: string
+          - name: quoteRole
+            label: Должность и стаж
+            type: string
+          - name: quotePhoto
+            label: Фото в плашке цитаты
+            type: image
+
+      - name: homeServices
+        label: Основные направления на главной (4 карточки)
+        type: list
+        fields:
+          - name: key
+            label: Код раздела (dermatology / trichology / pediatric / cosmetology)
+            type: string
+          - name: title
+            label: Название направления
+            type: string
+          - name: description
+            label: Краткое описание
+            type: text
+          - name: priceFrom
+            label: Цена «от ... ₽»
+            type: string
+          - name: image
+            label: Фото (для первой крупной карточки)
+            type: image
+
+      - name: doctors
+        label: Врачи клиники
+        type: list
+        fields:
+          - name: slug
+            label: Идентификатор страницы (латиницей, например savina)
+            type: string
+          - name: name
+            label: Полное ФИО врача
+            type: string
+          - name: shortName
+            label: Имя для кнопки записи
+            type: string
+          - name: bookingOptionLabel
+            label: Подпись в выпадающем списке записи
+            type: string
+          - name: photo
+            label: Фотография врача
+            type: image
+          - name: badge
+            label: Бейдж на фото (Рейтинг / Категория)
+            type: string
+          - name: badgeAccent
+            label: Выделить бейдж терракотовым цветом
+            type: boolean
+          - name: specialty
+            label: Специальность (кратко для карточки)
+            type: string
+          - name: roleFull
+            label: Должность (для личной страницы)
+            type: string
+          - name: experience
+            label: Стаж (для карточки)
+            type: string
+          - name: profileMeta
+            label: Стаж и рейтинг (для личной страницы)
+            type: string
+          - name: specializationTitle
+            label: Заголовок списка специализации
+            type: string
+          - name: specializationItems
+            label: Пункты специализации
+            type: list
+            fields:
+              - name: item
+                label: Пункт
+                type: string
+          - name: educationTitle
+            label: Заголовок блока образования
+            type: string
+          - name: educationText
+            label: Образование и опыт работы
+            type: text
+
+      - name: services
+        label: Прайс-лист услуг (5 категорий)
+        type: object
+        fields:
+          - name: dermatology
+            label: Дерматология
+            type: list
+            fields:
+              - name: title
+                label: Название услуги
+                type: string
+              - name: desc
+                label: Описание услуги
+                type: string
+              - name: price
+                label: Стоимость
+                type: string
+          - name: trichology
+            label: Трихология
+            type: list
+            fields:
+              - name: title
+                label: Название услуги
+                type: string
+              - name: desc
+                label: Описание услуги
+                type: string
+              - name: price
+                label: Стоимость
+                type: string
+          - name: pediatric
+            label: Детский прием
+            type: list
+            fields:
+              - name: title
+                label: Название услуги
+                type: string
+              - name: desc
+                label: Описание услуги
+                type: string
+              - name: price
+                label: Стоимость
+                type: string
+          - name: cosmetology
+            label: Косметология
+            type: list
+            fields:
+              - name: title
+                label: Название услуги
+                type: string
+              - name: desc
+                label: Описание услуги
+                type: string
+              - name: price
+                label: Стоимость
+                type: string
+          - name: removal
+            label: Удаление новообразований
+            type: list
+            fields:
+              - name: title
+                label: Название услуги
+                type: string
+              - name: desc
+                label: Описание услуги
+                type: string
+              - name: price
+                label: Стоимость
+                type: string
+
+      - name: reviews
+        label: Отзывы пациентов
+        type: list
+        fields:
+          - name: author
+            label: Имя пациента
+            type: string
+          - name: meta
+            label: Направление и площадка (например, Яндекс Карты)
+            type: string
+          - name: text
+            label: Текст отзыва
+            type: text
+
+      - name: faq
+        label: Частые вопросы (FAQ)
+        type: list
+        fields:
+          - name: question
+            label: Вопрос
+            type: string
+          - name: answer
+            label: Ответ
+            type: text
+
+      - name: licenses
+        label: Лицензии и сертификаты
+        type: list
+        fields:
+          - name: title
+            label: Название документа
+            type: string
+          - name: subtitle
+            label: Номер или подзаголовок
+            type: string
+          - name: image
+            label: Изображение документа
+            type: image
