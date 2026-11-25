@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Савина Клиник — Экспертная дерматология и трихология в Казани</title>
+  
+  <!-- Шрифты концепции «Клинический Уют»: Nunito (заголовки) и Manrope (основной текст) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Иконки Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- GSAP 3.12+ & Lenis Smooth Scroll -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  
+  <!-- Tailwind CSS в канонической палитре клиники -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F3F1ED',    // Основной фон (теплый серо-песочный холст)
+            surface: '#E8E4DC',   // Дополнительные поверхности (насыщенный теплый беж)
+            charcoal: '#2D2A26',  // Основной темный цвет текста (глубокий антрацит)
+            taupe: '#5A554E',     // Второстепенный текст повышенной контрастности
+            divider: '#DCD7CE',   // Тонкие разделители и рамки
+            terracotta: {
+              DEFAULT: '#B85D46', // Главный терракотовый акцент
+              dark: '#9E4732'     // Темный терракот для hover-состояний
+            }
+          },
+          fontFamily: {
+            heading: ['Nunito', 'sans-serif'],
+            body: ['Manrope', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '12px',       // Сдержанные скругления карточек (8–12 px)
+            'btn': '12px',        // Умеренные скругления кнопок (10–12 px)
+            'menu': '14px',       // Скругление навигации
+          }
+        }
+      }
+    }
+  
+    
+  </script>
+
+  <style>
+    body {
+      background-color: #F3F1ED;
+      color: #2D2A26;
+      font-family: 'Manrope', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Заголовки H1, H2, H3 строго по единой шкале */
+    h1 {
+      font-family: 'Nunito', sans-serif;
+      letter-spacing: -0.01em;
+    }
+
+    /* H2: строго 30px на мобильных -> 48px на десктопе во всех блоках */
+    h2, .h2-title {
+      font-family: 'Nunito', sans-serif !important;
+      letter-spacing: -0.01em !important;
+      font-weight: 800 !important;
+      font-size: 30px !important;
+      line-height: 1.2 !important;
+    }
+    @media (min-width: 640px) {
+      h2, .h2-title {
+        font-size: 48px !important;
+        line-height: 1.15 !important;
+      }
+    }
+
+    /* H3: строго 24px на мобильных -> 30px на десктопе во всех блоках */
+    h3, .h3-title {
+      font-family: 'Nunito', sans-serif !important;
+      letter-spacing: -0.01em !important;
+      font-weight: 700 !important;
+      font-size: 24px !important;
+      line-height: 1.3 !important;
+    }
+    @media (min-width: 640px) {
+      h3, .h3-title {
+        font-size: 30px !important;
+        line-height: 1.25 !important;
+      }
+    }
+
+    /* line-height: 1.4 для всех текстов кроме заголовков; самый темный читаемый цвет #2D2A26 */
+    body, p, span:not(.btn-action *):not(.word-reveal):not(.word-group), a:not(.btn-action), li, label, input, select, .content-body, .typographed-body {
+      line-height: 1.4 !important;
+    }
+
+    /* Основной наборный текст: 14px mobile -> 16px tablet -> 18px desktop; темный цвет #2D2A26 */
+    .content-body,
+    .typographed-body {
+      font-size: 14px;
+      line-height: 1.4 !important;
+      color: #2D2A26;
+    }
+    @media (min-width: 768px) {
+      .content-body,
+      .typographed-body {
+        font-size: 16px;
+        line-height: 1.4 !important;
+      }
+    }
+    @media (min-width: 1024px) {
+      .content-body,
+      .typographed-body {
+        font-size: 18px;
+        line-height: 1.4 !important;
+      }
+    }
+
+    .typographed {
+      text-wrap: pretty;
+    }
+    /* Сдвиг стрелки на 10px при hover */
+    .btn-action .btn-arrow {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-action:hover .btn-arrow {
+      transform: translateX(10px);
+    }
+    /* Плавный скролл Lenis */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    /* Аккордеон FAQ — плавное раскрытие через CSS Grid */
+    .faq-desc {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      padding-top: 0;
+      transition:
+        grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+        padding-top 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-desc-inner {
+      overflow: hidden;
+    }
+    .faq-item.open .faq-desc {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      padding-top: 12px;
+    }
+    .faq-icon {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    /* Плавное появление поп-апа записи */
+    .booking-modal-backdrop {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .booking-modal-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .booking-modal-card {
+      opacity: 0;
+      transform: translateY(18px) scale(0.96);
+      transition:
+        opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .booking-modal-backdrop.is-open .booking-modal-card {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Поблочное проявление слов из размытия (blur reveal) для h1 и h2 */
+    .word-group {
+      display: inline-block;
+      white-space: nowrap;
+      line-height: inherit;
+    }
+    .word-reveal {
+      display: inline-block;
+      line-height: inherit;
+      will-change: filter, opacity, transform;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .faq-desc,
+      .faq-icon,
+      .booking-modal-backdrop,
+      .booking-modal-card {
+        transition: none !important;
+      }
+      .word-reveal {
+        filter: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+    /* Слайдер отзывов */
+    .review-track {
+      display: flex;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .review-slide {
+      flex: 0 0 100%;
+    }
+    @media (min-width: 768px) {
+      .review-slide {
+        flex: 0 0 calc((100% - 24px) / 2);
+      }
+    }
+    @media (min-width: 1024px) {
+      .review-slide {
+        flex: 0 0 calc((100% - 48px) / 3);
+      }
+    }
+    .page-view {
+      display: none;
+    }
+    .page-view.active-page {
+      display: block;
+    }
+    .sticky-card {
+      position: sticky;
+      transition: transform 0.2s ease;
+    }
+    .before-after-container {
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .before-after-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .before-after-slider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background-color: #FFFFFF;
+      transform: translateX(-50%);
+      cursor: ew-resize;
+    }
+    .slider-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #B85D46;
+      border: 2px solid #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size: 16px;
+    }
+
+    /* Блок «Как проходит приём» с плавным параллаксом и анимацией этапов */
+    .reception-parallax-block {
+      position: relative;
+      overflow: hidden;
+      background-color: #2D2A26;
+    }
+    .reception-bg-layer {
+      display: none;
+      position: absolute;
+      inset: -12% 0;
+      background-image: linear-gradient(to top, rgba(45, 42, 38, 0.94) 0%, rgba(45, 42, 38, 0.55) 50%, rgba(45, 42, 38, 0.25) 100%), url('assets/reception-bg.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      will-change: transform;
+      pointer-events: none;
+    }
+    @media (min-width: 768px) {
+      .reception-bg-layer {
+        display: block;
+      }
+    }
+  
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+</style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-terracotta selection:text-white">
+
+  <!-- ==================== ШАПКА / МЕНЮ (Пункт 1: внутренние отступы 10px; Пункт 2: выравнивание по одной линии с контентом) ==================== -->
+  <header class="fixed top-3 sm:top-5 inset-x-0 z-50 pointer-events-none">
+    <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+      <nav class="pointer-events-auto bg-[#F3F1ED]/90 backdrop-blur-md border border-divider rounded-menu p-[10px] flex items-center justify-between gap-4 w-full">
+        <a href="#home" onclick="navigateTo(event, 'home')" class="flex items-center gap-2 group shrink-0 pl-1">
+          <svg class="w-6 h-6 text-terracotta transition-transform duration-300 group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L12 22M12 22C12 22 7 18 5 12C3 6 7 2 12 2M12 22C12 22 17 18 19 12C21 6 17 2 12 2" stroke-linecap="round"/>
+          </svg>
+          <span class="font-heading font-extrabold text-lg text-charcoal tracking-tight">Савина&nbsp;Клиник</span>
+        </a>
+
+        <!-- Меню: только «О клинике», «Врачи», «Услуги» (ведут в каталог) и «Контакты» -->
+        <div class="hidden md:flex items-center gap-4 lg:gap-8 text-sm lg:text-base text-charcoal font-medium">
+          <a href="#principles" onclick="scrollToAnchor(event, 'section-principles')" class="hover:text-terracotta transition-colors text-base">О&nbsp;клинике</a>
+          <a href="#doctors" onclick="navigateTo(event, 'doctors')" class="hover:text-terracotta transition-colors text-base">Врачи</a>
+          <a href="#services" onclick="navigateTo(event, 'services')" class="hover:text-terracotta transition-colors text-base">Услуги</a>
+          <a href="#contacts" onclick="scrollToAnchor(event, 'section-contacts')" class="hover:text-terracotta transition-colors text-base">Контакты</a>
+        </div>
+
+        <!-- Десктопная правая часть: телефон + кнопка записи -->
+        <div class="hidden md:flex items-center gap-2.5 lg:gap-4 shrink-0 pr-1">
+          <a href="tel:+79000000000" class="flex items-center gap-1.5 text-sm sm:text-base font-semibold text-charcoal hover:text-terracotta transition-colors">
+            <i class="ph ph-phone text-terracotta text-lg"></i>
+            <span class="whitespace-nowrap">+7&nbsp;900&nbsp;000-00-00</span>
+          </a>
+          <button onclick="openBookingModal()" class="inline-flex items-center px-4 py-2 bg-terracotta hover:bg-terracotta-dark text-white text-sm sm:text-base font-semibold rounded-btn transition-colors">
+            Запись
+          </button>
+        </div>
+
+        <!-- Мобильная кнопка гамбургера -->
+        <div class="flex md:hidden items-center pr-1">
+          <button onclick="toggleMobileMenu()" aria-label="Открыть меню" class="w-10 h-10 flex items-center justify-center rounded-btn bg-surface text-charcoal hover:text-terracotta border border-divider transition-colors">
+            <i class="ph ph-list text-2xl" id="burger-icon"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== МОБИЛЬНЫЙ DRAWER (ГАМБУРГЕР-МЕНЮ) ==================== -->
+  <div id="mobile-menu-drawer" class="fixed inset-0 z-[60] bg-charcoal/95 backdrop-blur-xl flex flex-col justify-between p-6 sm:p-8 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="flex items-center justify-between border-b border-white/15 pb-4">
+      <div class="flex items-center gap-2">
+        <svg class="w-6 h-6 text-terracotta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L12 22M12 22C12 22 7 18 5 12C3 6 7 2 12 2M12 22C12 22 17 18 19 12C21 6 17 2 12 2" stroke-linecap="round"/>
+        </svg>
+        <span class="font-heading font-extrabold text-xl text-canvas tracking-tight">Савина&nbsp;Клиник</span>
+      </div>
+      <button onclick="toggleMobileMenu()" aria-label="Закрыть меню" class="w-10 h-10 flex items-center justify-center rounded-btn bg-white/10 text-canvas hover:text-terracotta border border-white/15 transition-colors">
+        <i class="ph ph-x text-2xl"></i>
+      </button>
+    </div>
+
+    <div class="flex flex-col gap-6 py-6">
+      <a href="#principles" onclick="closeMobileMenuAndScroll(event, 'section-principles')" class="font-heading font-bold text-2xl text-canvas hover:text-terracotta transition-colors">О&nbsp;клинике</a>
+      <a href="#doctors" onclick="closeMobileMenuAndNavigate(event, 'doctors')" class="font-heading font-bold text-2xl text-canvas hover:text-terracotta transition-colors">Врачи</a>
+      <a href="#services" onclick="closeMobileMenuAndNavigate(event, 'services')" class="font-heading font-bold text-2xl text-canvas hover:text-terracotta transition-colors">Услуги</a>
+      <a href="#contacts" onclick="closeMobileMenuAndScroll(event, 'section-contacts')" class="font-heading font-bold text-2xl text-canvas hover:text-terracotta transition-colors">Контакты</a>
+    </div>
+
+    <div class="space-y-4 pt-4 border-t border-white/15">
+      <a href="tel:+79000000000" class="block font-heading font-extrabold text-2xl text-canvas hover:text-terracotta transition-colors">
+        +7&nbsp;900&nbsp;000-00-00
+      </a>
+      <div class="grid grid-cols-2 gap-3">
+        <a href="https://t.me/savinaclinic" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-3 rounded-btn bg-white/10 border border-white/15 text-canvas font-semibold text-sm hover:border-terracotta/60 transition-colors">
+          <i class="ph-fill ph-telegram-logo text-lg text-sky-400"></i> Telegram
+        </a>
+        <a href="https://wa.me/79000000000" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-3 rounded-btn bg-white/10 border border-white/15 text-canvas font-semibold text-sm hover:border-terracotta/60 transition-colors">
+          <i class="ph-fill ph-whatsapp-logo text-lg text-emerald-400"></i> WhatsApp
+        </a>
+      </div>
+      <button onclick="toggleMobileMenu(); openBookingModal();" class="w-full py-3.5 bg-terracotta hover:bg-terracotta-dark text-white font-semibold rounded-btn text-base shadow-sm transition-colors">
+        Записаться на&nbsp;приём
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ==================== ОСНОВНОЙ КОНТЕНТ ==================== -->
+  <main class="flex-grow">
+
+    <!-- ГЛАВНАЯ СТРАНИЦА -->
+    <div id="page-home" class="page-view active-page">
+
+      <!-- 1. ПЕРВЫЙ ЭКРАН (По референсу: фото 895px на мобайле, текст под подбородком, плашка цитаты 120px заходит на фон следующего блока) -->
+      <section class="relative w-full md:h-auto md:min-h-[680px] lg:h-[100dvh] lg:min-h-[640px] flex items-end md:pt-48 lg:pt-28 pb-0 md:pb-10 lg:pb-6 xl:pb-8">
+        <!-- Мобильное фото первого экрана: высота 895px, меню слегка заходит на волосы, текст под подбородком -->
+        <div class="md:hidden absolute top-0 inset-x-0 h-[895px] overflow-hidden pointer-events-none">
+          <img 
+            src="assets/hero-mobile.jpg" 
+            alt="Экспертная дерматология и&nbsp;трихология — Савина Клиник" 
+            class="w-full h-full object-cover object-top"
+          >
+          <div class="absolute inset-0 bg-[#2D2A26]/15"></div>
+        </div>
+
+        <!-- Десктопное полноэкранное фото первого экрана -->
+        <img 
+          src="assets/hero-desktop.jpg" 
+          alt="Экспертная дерматология и&nbsp;трихология — Савина Клиник" 
+          class="hidden md:block absolute inset-0 w-full h-full object-cover object-[center_22%]"
+        >
+        <!-- Десктопный нижний градиент для читаемости опущенного текста и карточки -->
+        <div class="hidden md:block absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-transparent pointer-events-none"></div>
+
+        <div class="relative z-10 w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 pt-[510px] md:pt-0">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-end">
+            
+            <div class="lg:col-span-7 space-y-3.5 lg:space-y-3.5 text-white">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#2D2A26]/35 md:bg-white/15 backdrop-blur-md text-white text-xs font-medium rounded-btn border border-white/25">
+                  <i class="ph-fill ph-map-pin text-surface"></i> <span id="cms-hero-badge-location">ул.&nbsp;Лесная,&nbsp;14</span>
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#2D2A26]/35 md:bg-white/15 backdrop-blur-md text-white text-xs font-medium rounded-btn border border-white/25">
+                  <i class="ph-fill ph-baby text-surface"></i> <span id="cms-hero-badge-pediatric">Детский прием с&nbsp;рождения</span>
+                </span>
+              </div>
+
+              <h1 id="cms-hero-title" class="text-3xl sm:text-5xl lg:text-[54px] xl:text-6xl font-extrabold text-white leading-[1.08] typographed">
+                Экспертная дерматология и&nbsp;трихология в&nbsp;Казани
+              </h1>
+
+              <!-- Лид-абзац: на десктопе предложения строго в две строки -->
+              <p class="content-body text-white md:text-surface typographed max-w-none">
+                <span id="cms-hero-sub1" class="lg:block lg:whitespace-nowrap">Бережное и&nbsp;доказательное лечение кожи, волос и&nbsp;ногтей для&nbsp;взрослых и&nbsp;детей.</span>
+                <span id="cms-hero-sub2" class="lg:block lg:whitespace-nowrap">Современное оборудование и&nbsp;врачи с&nbsp;доказательной практикой.</span>
+              </p>
+
+              <div class="flex flex-wrap items-center gap-4 pt-1">
+                <button onclick="openBookingModal()" class="btn-action w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-terracotta hover:bg-terracotta-dark text-white font-semibold text-sm sm:text-base rounded-btn transition-colors duration-200">
+                  <span>Записаться на&nbsp;прием</span>
+                  <i class="ph ph-arrow-right btn-arrow text-base"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Справа внизу: карточка с цитатой Татьяны Савина (высота 120px на мобайле, адаптивная на планшете и десктопе) -->
+            <div class="lg:col-span-5 flex md:justify-start lg:justify-end mt-1 md:mt-2 lg:mt-0">
+              <div class="w-full max-w-lg lg:max-w-md h-[120px] md:h-auto bg-[#5A554E]/50 md:bg-charcoal/45 backdrop-blur-md md:backdrop-blur-xl border border-white/25 rounded-card p-[10px] md:p-4 flex items-center gap-3 sm:gap-4">
+                <div class="w-[76px] h-full md:w-20 md:h-24 lg:w-24 lg:h-28 rounded-card overflow-hidden shrink-0 bg-surface">
+                  <img id="cms-hero-quote-photo" src="assets/doctor-savina.jpg" alt="Татьяна Савина" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="flex flex-col justify-between h-full lg:h-auto py-0.5">
+                  <p id="cms-hero-quote-text" class="text-[11px] lg:text-sm text-white font-medium leading-[1.3] typographed not-italic">
+                    «Наша цель&nbsp;— восстановить здоровье кожи без&nbsp;лишних назначений и&nbsp;тревоги, окружая заботой каждого пациента».
+                  </p>
+                  <div class="mt-1.5 lg:mt-2.5">
+                    <p id="cms-hero-quote-author" class="font-heading font-bold text-xs lg:text-sm text-white leading-tight">Татьяна Савина</p>
+                    <p id="cms-hero-quote-role" class="text-[10px] lg:text-[11px] text-white/90 md:text-surface font-medium leading-tight mt-0.5">Основательница и&nbsp;главный врач клиники • Стаж 11&nbsp;лет</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. ПРИНЦИПЫ ДОКАЗАТЕЛЬНОЙ ЗАБОТЫ (Пункт 2: на десктопе фото строго под 1-м пунктом; в мобильной версии фото идет ПОСЛЕ всех 3 пунктов) -->
+      <section id="section-principles" class="relative z-20 bg-canvas mt-[100px] lg:mt-[150px] w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end mb-8 sm:mb-12">
+          <div class="lg:col-span-5">
+            <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-charcoal leading-tight">
+              Принципы доказательной заботы
+            </h2>
+          </div>
+          <div class="lg:col-span-7 pb-1">
+            <p class="content-body text-charcoal leading-relaxed typographed">
+              Мы&nbsp;отказались от&nbsp;избыточных анализов и&nbsp;препаратов с&nbsp;недоказанной эффективностью. Только точная медицинская помощь по&nbsp;клиническим протоколам.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+          
+          <!-- Большая фотография врачей слева -->
+          <div class="lg:col-span-5 flex">
+            <div class="w-full h-full min-h-[380px] sm:min-h-[480px] rounded-card overflow-hidden bg-surface border border-divider relative group">
+              <img 
+                src="assets/principles-doctors.jpg" 
+                alt="Врачи Савина Клиник на приёме" 
+                class="w-full h-full object-cover object-[70%_top] lg:object-[68%_top] transition-transform duration-500 group-hover:scale-105"
+              >
+              <div class="absolute inset-0 bg-charcoal/10 pointer-events-none"></div>
+            </div>
+          </div>
+
+          <!-- Правая колонка: 3 колонки принципов + фото (на десктопе под пунктом 1, на мобайле после всех 3 пунктов) -->
+          <div class="lg:col-span-7 flex flex-col justify-between h-full">
+            
+            <!-- Сетка 3 пунктов на десктопе / 2+1 на планшете / последовательно на мобайле -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-4 items-stretch h-full">
+              
+              <!-- Колонка 1: Международные стандарты -->
+              <div class="flex flex-col justify-between space-y-6 h-full">
+                <div class="space-y-[18px]">
+                  <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal">
+                    Международные стандарты
+                  </h3>
+                  <p class="content-body text-charcoal typographed">
+                    Назначаем только обследования и&nbsp;лечение с&nbsp;клинически доказанной пользой для&nbsp;вашего здоровья.
+                  </p>
+                </div>
+
+                <!-- Десктопная версия фото: строго под колонкой 1, выровнена по низу mt-auto, на мобайле скрыта -->
+                <div class="hidden lg:block w-full flex-1 min-h-[280px] rounded-card overflow-hidden border border-divider bg-surface shadow-none mt-6">
+                  <img 
+                    src="assets/principles-pediatric.jpg" 
+                    alt="Детский дерматологический приём в Савина Клиник" 
+                    class="w-full h-full object-cover object-center"
+                  >
+                </div>
+              </div>
+
+              <!-- Колонка 2: Цифровая дерматоскопия -->
+              <div class="space-y-[18px]">
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal">
+                  Цифровая дерматоскопия
+                </h3>
+                <p class="content-body text-charcoal typographed">
+                  Аппаратный осмотр родинок и&nbsp;кожи с&nbsp;оптическим увеличением и&nbsp;сохранением цифровой карты.
+                </p>
+              </div>
+
+              <!-- Колонка 3: Прием детей с рождения -->
+              <div class="space-y-[18px]">
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal">
+                  Прием детей с&nbsp;рождения
+                </h3>
+                <p class="content-body text-charcoal typographed">
+                  Бережный осмотр без&nbsp;слез и&nbsp;боли. Врачи имеют специализированную подготовку по&nbsp;детской дерматологии.
+                </p>
+              </div>
+
+            </div>
+
+            <!-- Мобильная/планшетная версия фото: показывается ПОСЛЕ ВСЕХ ТРЁХ ПУНКТОВ на смартфонах и планшетах, на десктопе скрыта -->
+            <div class="block lg:hidden w-full aspect-[3/4] md:aspect-[16/10] min-h-[340px] rounded-card overflow-hidden border border-divider bg-surface shadow-none mt-8">
+              <img 
+                src="assets/principles-pediatric.jpg" 
+                alt="Детский дерматологический приём в Савина Клиник" 
+                class="w-full h-full object-cover object-[center_15%]"
+              >
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. БЕЗОПАСНОСТЬ И ГАРАНТИЯ КАЧЕСТВА (Пункт 6: полностью тёмный блок bg-charcoal, светлый текст, светлые карточки bg-surface, внутренние отступы py-[100px] lg:py-[150px]) -->
+      <section id="section-safety" class="relative z-20 w-full bg-charcoal mt-[100px] lg:mt-[150px] py-[100px] lg:py-[150px] text-white">
+        <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            <div class="lg:col-span-5 lg:sticky lg:top-28 pt-2">
+              <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-white leading-tight">
+                Безопасность и&nbsp;гарантия качества
+              </h2>
+              <p class="content-body text-surface leading-relaxed typographed mt-4 sm:mt-6">
+                Мы&nbsp;создали систему, при&nbsp;которой медицинская помощь оказывается в&nbsp;условиях бескомпромиссной чистоты. Вы&nbsp;можете быть абсолютно уверены в&nbsp;прозрачности каждого этапа лечения.
+              </p>
+
+              <!-- Лицензия -->
+              <div class="mt-8 pt-6 border-t border-white/20 text-white">
+                <p class="font-heading font-bold text-base text-white mb-1">Медицинская лицензия</p>
+                <p id="cms-safety-license" class="content-body text-surface/80">№&nbsp;ЛО41-00000-16/00000000 от&nbsp;15.05.2022 выдана Министерством здравоохранения&nbsp;РТ.</p>
+              </div>
+            </div>
+
+            <!-- Правая колонка: 4 светлые карточки с темным текстом на темном фоне -->
+            <div class="lg:col-span-7 space-y-6 relative">
+              <div class="sticky-card top-24 bg-surface border border-divider rounded-card p-6 sm:p-8">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 rounded-card bg-canvas flex items-center justify-center text-terracotta text-2xl border border-divider">
+                    <i class="ph ph-shield-plus"></i>
+                  </div>
+                  <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal">Стерильность и&nbsp;асептика</h3>
+                </div>
+                <p class="content-body text-charcoal leading-relaxed typographed">
+                  Многоступенчатая стерилизация инструментария в&nbsp;автоклавах медицинского класса&nbsp;B с&nbsp;постоянным контролем физико-химических индикаторов. Пространства клиники оснащены бактерицидными рециркуляторами закрытого типа непрерывного действия.
+                </p>
+              </div>
+
+              <div class="sticky-card top-32 bg-surface border border-divider rounded-card p-6 sm:p-8">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 rounded-card bg-canvas flex items-center justify-center text-terracotta text-2xl border border-divider">
+                    <i class="ph ph-hand-soap"></i>
+                  </div>
+                  <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal">Одноразовые расходники</h3>
+                </div>
+                <p class="content-body text-charcoal leading-relaxed typographed">
+                  Мы&nbsp;используем только сертифицированные одноразовые простыни, перчатки, шпатели, насадки для&nbsp;оборудования и&nbsp;дерматоскопические адаптеры. Упаковка вскрывается врачом исключительно в&nbsp;присутствии пациента перед&nbsp;началом процедуры.
+                </p>
+              </div>
+
+              <div class="sticky-card top-40 bg-surface border border-divider rounded-card p-6 sm:p-8">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 rounded-card bg-canvas flex items-center justify-center text-terracotta text-2xl border border-divider">
+                    <i class="ph ph-check-circle"></i>
+                  </div>
+                  <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal">Сертифицированные препараты</h3>
+                </div>
+                <p class="content-body text-charcoal leading-relaxed typographed">
+                  Все применяемые медикаменты, дерматологические пилинги и&nbsp;трихологические комплексы закупаются напрямую у&nbsp;официальных дистрибьюторов, внесены в&nbsp;государственную систему маркировки и&nbsp;хранятся при&nbsp;строгом температурном мониторинге.
+                </p>
+              </div>
+
+              <div class="sticky-card top-48 bg-surface border border-divider rounded-card p-6 sm:p-8">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 rounded-card bg-canvas flex items-center justify-center text-terracotta text-2xl border border-divider">
+                    <i class="ph ph-certificate"></i>
+                  </div>
+                  <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal">Лицензия и&nbsp;квалификация</h3>
+                </div>
+                <p class="content-body text-charcoal leading-relaxed typographed mb-6">
+                  Медицинская деятельность ведется на&nbsp;основании бессрочной лицензии Министерства здравоохранения. Каждый специалист клиники проходит непрерывное повышение квалификации и&nbsp;участвует в&nbsp;профильных съездах дерматовенерологов.
+                </p>
+                <button onclick="navigateTo(event, 'licenses')" class="btn-action inline-flex items-center gap-2 text-sm sm:text-base font-bold text-terracotta hover:text-terracotta-dark transition-colors">
+                  <span>Посмотреть лицензии</span>
+                  <i class="ph ph-arrow-right btn-arrow"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. ВРАЧИ КЛИНИКИ (Пункт 8: описание возвращено под заголовок) -->
+      <section id="section-doctors" class="relative z-20 bg-canvas mt-[100px] lg:mt-[150px] w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 pb-[100px] lg:pb-[150px]">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 sm:mb-12 gap-6">
+          <div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-charcoal leading-tight">
+              Врачи клиники
+            </h2>
+            <!-- Описание строго под заголовком -->
+            <p class="content-body text-charcoal mt-4 sm:mt-6 typographed max-w-2xl">
+              Специалисты доказательной практики с&nbsp;проверенными дипломами и&nbsp;непрерывным повышением квалификации.
+            </p>
+          </div>
+          <a href="#doctors" onclick="navigateTo(event, 'doctors')" class="btn-action inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-terracotta hover:text-terracotta-dark shrink-0">
+            <span>Все специалисты</span>
+            <i class="ph ph-arrow-right btn-arrow"></i>
+          </a>
+        </div>
+
+        <div id="home-doctors-grid" class="flex overflow-x-auto sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-4 sm:pb-0 snap-x snap-mandatory scrollbar-none">
+          
+          <!-- Врач 1: Савина Татьяна Станиславовна -->
+          <div class="doctor-card w-[78%] sm:w-auto shrink-0 sm:shrink snap-start bg-surface border border-divider rounded-card p-4 hover:border-terracotta/40 transition-colors flex flex-col justify-between group">
+            <a href="#doctor-savina" onclick="navigateTo(event, 'doctor-savina')" class="block">
+              <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-3.5 relative">
+                <img src="assets/doctor-savina.jpg" alt="Татьяна Савина" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 bg-charcoal/80 text-white text-[10px] font-bold rounded-btn backdrop-blur-sm">
+                  Рейтинг 5.0
+                </span>
+              </div>
+              <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                Савина Татьяна Станиславовна
+              </h3>
+              <p class="text-[16px] text-charcoal mt-1.5 leading-snug">Главный врач, дерматовенеролог, трихолог</p>
+              <div class="mt-2.5 text-xs sm:text-sm font-semibold text-terracotta">
+                Стаж 11&nbsp;лет
+              </div>
+            </a>
+            <div class="mt-4">
+              <button onclick="openBookingModal('Татьяна Савина')" class="btn-action w-full min-h-[46px] py-3 px-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                <span>Записаться к&nbsp;врачу</span>
+                <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Врач 2: Морозова Эльвира Зуферовна -->
+          <div class="doctor-card w-[78%] sm:w-auto shrink-0 sm:shrink snap-start bg-surface border border-divider rounded-card p-4 hover:border-terracotta/40 transition-colors flex flex-col justify-between group">
+            <a href="#doctor-morozova" onclick="navigateTo(event, 'doctor-morozova')" class="block">
+              <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-3.5 relative">
+                <img src="assets/doctor-morozova.jpg" alt="Морозова Эльвира Зуферовна" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 bg-charcoal/80 text-white text-[10px] font-bold rounded-btn backdrop-blur-sm">
+                  Высшая категория
+                </span>
+              </div>
+              <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                Морозова Эльвира Зуферовна
+              </h3>
+              <p class="text-[16px] text-charcoal mt-1.5 leading-snug">Дерматовенеролог, детский дерматолог, онкодерматолог</p>
+              <div class="mt-2.5 text-xs sm:text-sm font-semibold text-terracotta">
+                Стаж 20&nbsp;лет
+              </div>
+            </a>
+            <div class="mt-4">
+              <button onclick="openBookingModal('Морозова Эльвира Зуферовна')" class="btn-action w-full min-h-[46px] py-3 px-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                <span>Записаться к&nbsp;врачу</span>
+                <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Врач 3: Зарипова Рушания Расиховна -->
+          <div class="doctor-card w-[78%] sm:w-auto shrink-0 sm:shrink snap-start bg-surface border border-divider rounded-card p-4 hover:border-terracotta/40 transition-colors flex flex-col justify-between group">
+            <a href="#doctor-zaripova" onclick="navigateTo(event, 'doctor-zaripova')" class="block">
+              <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-3.5 relative">
+                <img src="assets/doctor-zaripova.jpg" alt="Зарипова Рушания Расиховна" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 bg-terracotta text-white text-[10px] font-bold rounded-btn">
+                  1&nbsp;место ПроДокторов
+                </span>
+              </div>
+              <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                Зарипова Рушания Расиховна
+              </h3>
+              <p class="text-[16px] text-charcoal mt-1.5 leading-snug">Дерматолог, венеролог, детский дерматолог</p>
+              <div class="mt-2.5 text-xs sm:text-sm font-semibold text-terracotta">
+                Стаж 11&nbsp;лет • Высшая категория
+              </div>
+            </a>
+            <div class="mt-4">
+              <button onclick="openBookingModal('Зарипова Рушания Расиховна')" class="btn-action w-full min-h-[46px] py-3 px-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                <span>Записаться к&nbsp;врачу</span>
+                <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Врач 4: Соколова Татьяна Алексеевна -->
+          <div class="doctor-card w-[78%] sm:w-auto shrink-0 sm:shrink snap-start bg-surface border border-divider rounded-card p-4 hover:border-terracotta/40 transition-colors flex flex-col justify-between group">
+            <a href="#doctor-sokolova" onclick="navigateTo(event, 'doctor-sokolova')" class="block">
+              <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-3.5 relative">
+                <img src="assets/doctor-sokolova.jpg" alt="Соколова Татьяна Алексеевна" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 bg-charcoal/80 text-white text-[10px] font-bold rounded-btn backdrop-blur-sm">
+                  Рейтинг 5.0
+                </span>
+              </div>
+              <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                Соколова Татьяна Алексеевна
+              </h3>
+              <p class="text-[16px] text-charcoal mt-1.5 leading-snug">Детский дерматолог, дерматолог, трихолог</p>
+              <div class="mt-2.5 text-xs sm:text-sm font-semibold text-terracotta">
+                Стаж 6&nbsp;лет
+              </div>
+            </a>
+            <div class="mt-4">
+              <button onclick="openBookingModal('Соколова Татьяна Алексеевна')" class="btn-action w-full min-h-[46px] py-3 px-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                <span>Записаться к&nbsp;врачу</span>
+                <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 5. КАК ПРОХОДИТ ПРИЁМ (Параллакс-блок на десктопе; на мобильных высота 1170px, коричневое затемнение 20%, текст от подбородка, линия по левому краю) -->
+      <section class="reception-parallax-block relative z-10 w-full h-[1170px] md:h-auto md:min-h-[100dvh] flex flex-col justify-start md:justify-end" id="section-reception">
+        <!-- Мобильное полноразмерное статичное фото блока «Как проходит приём» -->
+        <img 
+          src="assets/reception-mobile.jpg" 
+          alt="Как проходит приём в&nbsp;Савина Клиник" 
+          class="md:hidden absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
+        >
+        <!-- Коричневое затемнение 20% -->
+        <div class="md:hidden absolute inset-0 bg-[#2D2A26]/20 pointer-events-none"></div>
+
+        <!-- Десктопный параллакс-фон -->
+        <div class="reception-bg-layer" aria-hidden="true"></div>
+
+        <div class="relative z-10 w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 pt-[445px] md:pt-28 lg:pt-32 pb-12 md:pb-20 lg:pb-24 text-white">
+          
+          <!-- Заголовок и подзаголовок (начинаются на подбородке в мобильной версии) -->
+          <div class="max-w-3xl mb-8 sm:mb-14 md:mb-16">
+            <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-white leading-tight">
+              Как&nbsp;проходит приём
+            </h2>
+            <p class="reception-subtitle content-body text-white/95 md:text-surface/90 typographed mt-2.5 sm:mt-6 max-w-xl">
+              Понятный путь от&nbsp;первого обращения до&nbsp;устойчивого результата&nbsp;— без&nbsp;стресса, спешки и&nbsp;лишних назначений.
+            </p>
+          </div>
+
+          <!-- Горизонтальная пунктирная линия с 5 чисто белыми точками (десктоп lg+) -->
+          <div class="hidden lg:block relative w-full mb-8">
+            <div class="reception-line absolute top-1/2 left-0 right-0 border-t border-dashed border-white/40 -translate-y-1/2"></div>
+            <div class="grid grid-cols-5 items-center relative z-10">
+              <div class="flex justify-start"><span class="reception-dot w-3.5 h-3.5 rounded-full bg-white block"></span></div>
+              <div class="flex justify-start"><span class="reception-dot w-3.5 h-3.5 rounded-full bg-white block"></span></div>
+              <div class="flex justify-start"><span class="reception-dot w-3.5 h-3.5 rounded-full bg-white block"></span></div>
+              <div class="flex justify-start"><span class="reception-dot w-3.5 h-3.5 rounded-full bg-white block"></span></div>
+              <div class="flex justify-start"><span class="reception-dot w-3.5 h-3.5 rounded-full bg-white block"></span></div>
+            </div>
+          </div>
+
+          <!-- Сетка из 5 этапов (на мобильных — без плашки, вертикальная пунктирная линия выровнена по левому краю с заголовком и подзаголовком) -->
+          <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 items-start">
+            <!-- Вертикальная пунктирная линия на мобильных (выровнена по левому краю заголовка и подзаголовка) -->
+            <div class="sm:hidden absolute left-[7px] top-3 bottom-12 border-l border-dashed border-white/65 pointer-events-none" aria-hidden="true"></div>
+
+            <div class="reception-step relative pl-7 sm:pl-0 space-y-1.5 sm:space-y-2">
+              <span class="sm:hidden absolute left-0 top-1.5 w-4 h-4 rounded-full border border-white/65 bg-white/15 flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+              </span>
+              <div class="flex items-center gap-2.5 lg:block">
+                <span class="hidden sm:inline-block lg:hidden w-2.5 h-2.5 rounded-full bg-white shrink-0"></span>
+                <h4 class="font-heading font-bold text-lg sm:text-xl text-white">Запись</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-white/95 md:text-surface/85 leading-relaxed typographed">
+                Онлайн на&nbsp;сайте или&nbsp;по&nbsp;телефону: выберите врача и&nbsp;удобное время. Администратор подтвердит визит и&nbsp;напомнит о&nbsp;приёме.
+              </p>
+            </div>
+
+            <div class="reception-step relative pl-7 sm:pl-0 space-y-1.5 sm:space-y-2">
+              <span class="sm:hidden absolute left-0 top-1.5 w-4 h-4 rounded-full border border-white/65 bg-white/15 flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+              </span>
+              <div class="flex items-center gap-2.5 lg:block">
+                <span class="hidden sm:inline-block lg:hidden w-2.5 h-2.5 rounded-full bg-white shrink-0"></span>
+                <h4 class="font-heading font-bold text-lg sm:text-xl text-white">Консультация</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-white/95 md:text-surface/85 leading-relaxed typographed">
+                Врач выслушает жалобы, соберёт анамнез и&nbsp;проведёт осмотр. Расскажет о&nbsp;возможных причинах и&nbsp;вариантах решения.
+              </p>
+            </div>
+
+            <div class="reception-step relative pl-7 sm:pl-0 space-y-1.5 sm:space-y-2">
+              <span class="sm:hidden absolute left-0 top-1.5 w-4 h-4 rounded-full border border-white/65 bg-white/15 flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+              </span>
+              <div class="flex items-center gap-2.5 lg:block">
+                <span class="hidden sm:inline-block lg:hidden w-2.5 h-2.5 rounded-full bg-white shrink-0"></span>
+                <h4 class="font-heading font-bold text-lg sm:text-xl text-white">Диагностика</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-white/95 md:text-surface/85 leading-relaxed typographed">
+                При&nbsp;необходимости&nbsp;— дерматоскопия, соскобы, анализы. Точный диагноз до&nbsp;начала лечения, без&nbsp;догадок.
+              </p>
+            </div>
+
+            <div class="reception-step relative pl-7 sm:pl-0 space-y-1.5 sm:space-y-2">
+              <span class="sm:hidden absolute left-0 top-1.5 w-4 h-4 rounded-full border border-white/65 bg-white/15 flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+              </span>
+              <div class="flex items-center gap-2.5 lg:block">
+                <span class="hidden sm:inline-block lg:hidden w-2.5 h-2.5 rounded-full bg-white shrink-0"></span>
+                <h4 class="font-heading font-bold text-lg sm:text-xl text-white">Лечение</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-white/95 md:text-surface/85 leading-relaxed typographed">
+                Индивидуальный план и&nbsp;проведение процедур. Используем сертифицированное оборудование и&nbsp;препараты.
+              </p>
+            </div>
+
+            <div class="reception-step relative pl-7 sm:pl-0 space-y-1.5 sm:space-y-2">
+              <span class="sm:hidden absolute left-0 top-1.5 w-4 h-4 rounded-full border border-white/65 bg-white/15 flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+              </span>
+              <div class="flex items-center gap-2.5 lg:block">
+                <span class="hidden sm:inline-block lg:hidden w-2.5 h-2.5 rounded-full bg-white shrink-0"></span>
+                <h4 class="font-heading font-bold text-lg sm:text-xl text-white">Контроль</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-white/95 md:text-surface/85 leading-relaxed typographed">
+                Повторный осмотр, оценка результата и&nbsp;рекомендации по&nbsp;уходу, чтобы&nbsp;эффект сохранялся надолго.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. ОСНОВНЫЕ УСЛУГИ КЛИНИКИ (Светлый блок перекрывает параллакс-фотографию при скролле) -->
+      <section id="section-services" class="relative z-20 bg-canvas pt-[100px] lg:pt-[150px] w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-charcoal">
+              Основные услуги клиники
+            </h2>
+          </div>
+          <a href="#services" onclick="navigateTo(event, 'services')" class="btn-action inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-terracotta hover:text-terracotta-dark">
+            <span>Весь прайс-лист</span>
+            <i class="ph ph-arrow-right btn-arrow"></i>
+          </a>
+        </div>
+
+        <div id="home-services-grid" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <div class="md:col-span-12 lg:col-span-6 bg-surface border border-divider rounded-card overflow-hidden flex flex-col justify-between group hover:border-terracotta/40 transition-all">
+            <div class="h-64 sm:h-72 w-full overflow-hidden relative">
+              <img 
+                src="assets/service-dermatology.jpg" 
+                alt="Дерматоскопия и дерматология" 
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-4 left-6 right-6 text-white">
+                <h3 class="font-heading font-extrabold text-2xl sm:text-3xl text-white leading-tight">Дерматология</h3>
+              </div>
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+              <p class="content-body text-charcoal leading-relaxed typographed">
+                Лечение акне, розацеа, себорейного дерматита, экземы, псориаза и&nbsp;аллергических реакций кожи по&nbsp;стандартам доказательной практики.
+              </p>
+              <div class="pt-4 border-t border-divider flex items-center justify-between">
+                <span class="font-bold text-charcoal text-sm sm:text-base">от&nbsp;2&nbsp;500&nbsp;₽</span>
+                <a href="#services" onclick="navigateTo(event, 'services')" class="text-xs sm:text-sm font-semibold text-terracotta hover:underline">Подробнее об&nbsp;услугах →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-12 lg:col-span-6 flex flex-col gap-6 justify-between">
+            <div class="bg-surface border border-divider rounded-card p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group hover:border-terracotta/40 transition-all">
+              <div class="space-y-1">
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal leading-snug">Трихология</h3>
+                <p class="content-body text-charcoal leading-relaxed typographed max-w-md">
+                  Цифровая трихоскопия, диагностика причин выпадения волос, терапия заболеваний кожи волосистой части головы.
+                </p>
+              </div>
+              <div class="shrink-0 text-right sm:text-right pt-2 sm:pt-0">
+                <span class="block font-bold text-charcoal text-sm sm:text-base mb-1">от&nbsp;2&nbsp;800&nbsp;₽</span>
+                <a href="#services" onclick="navigateTo(event, 'services')" class="text-xs sm:text-sm font-semibold text-terracotta hover:underline">Подробнее →</a>
+              </div>
+            </div>
+
+            <div class="bg-surface border border-divider rounded-card p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group hover:border-terracotta/40 transition-all">
+              <div class="space-y-1">
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal leading-snug">Детям</h3>
+                <p class="content-body text-charcoal leading-relaxed typographed max-w-md">
+                  Бережный прием новорожденных и&nbsp;подростков. Лечение младенческих дерматозов, атопического дерматита, вирусных бородавок и&nbsp;сыпей.
+                </p>
+              </div>
+              <div class="shrink-0 text-right sm:text-right pt-2 sm:pt-0">
+                <span class="block font-bold text-charcoal text-sm sm:text-base mb-1">от&nbsp;2&nbsp;300&nbsp;₽</span>
+                <a href="#services" onclick="navigateTo(event, 'services')" class="text-xs sm:text-sm font-semibold text-terracotta hover:underline">Подробнее →</a>
+              </div>
+            </div>
+
+            <div class="bg-surface border border-divider rounded-card p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group hover:border-terracotta/40 transition-all">
+              <div class="space-y-1">
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal leading-snug">Косметология</h3>
+                <p class="content-body text-charcoal leading-relaxed typographed max-w-md">
+                  Медицинские уходы, атравматичные чистки, восстановительные пилинги и&nbsp;аппаратные методики коррекции постакне и&nbsp;текстуры кожи.
+                </p>
+              </div>
+              <div class="shrink-0 text-right sm:text-right pt-2 sm:pt-0">
+                <span class="block font-bold text-charcoal text-sm sm:text-base mb-1">от&nbsp;3&nbsp;000&nbsp;₽</span>
+                <a href="#services" onclick="navigateTo(event, 'services')" class="text-xs sm:text-sm font-semibold text-terracotta hover:underline">Подробнее →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. ДИАГНОСТИЧЕСКОЕ ОБОРУДОВАНИЕ (Пункт 8: описание возвращено под заголовок) -->
+      <section id="section-equipment" class="relative z-20 bg-canvas mt-[100px] lg:mt-[150px] w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="max-w-2xl mb-10 sm:mb-12">
+          <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-charcoal leading-tight">
+            Диагностическое оборудование
+          </h2>
+          <!-- Описание строго под заголовком -->
+          <p class="content-body text-charcoal typographed mt-4 sm:mt-6">
+            Точный диагноз ставится не&nbsp;на&nbsp;глаз, а&nbsp;на&nbsp;основе оптического и&nbsp;цифрового аппаратного контроля.
+          </p>
+        </div>
+
+        <div class="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 pb-4 md:pb-0 snap-x snap-mandatory scrollbar-none">
+          
+          <!-- Карточка 1 -->
+          <div class="equipment-card w-[85%] md:w-auto shrink-0 md:shrink snap-start bg-surface border border-divider rounded-card overflow-hidden flex flex-col justify-between">
+            <div class="aspect-[16/10] bg-white overflow-hidden relative border-b border-divider">
+              <img 
+                src="assets/equipment-heine.jpg" 
+                alt="Оптический дерматоскоп Heine Delta" 
+                class="w-full h-full object-contain"
+              >
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-between">
+              <div>
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal mb-2 leading-snug">Оптический дерматоскоп Heine Delta</h3>
+                <p class="content-body text-charcoal leading-relaxed typographed">
+                  Поляризованная светодиодная оптика для&nbsp;анализа структуры невусов и&nbsp;раннего выявления меланомы.
+                </p>
+              </div>
+              <div class="pt-4 mt-6 border-t border-divider">
+                <span class="text-xs sm:text-sm font-semibold text-terracotta">Германия</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Карточка 2 -->
+          <div class="equipment-card w-[85%] md:w-auto shrink-0 md:shrink snap-start bg-surface border border-divider rounded-card overflow-hidden flex flex-col justify-between">
+            <div class="aspect-[16/10] bg-white overflow-hidden relative border-b border-divider">
+              <img 
+                src="assets/equipment-aramo.jpg" 
+                alt="Цифровая трихокамера Aramo SG" 
+                class="w-full h-full object-contain"
+              >
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-between">
+              <div>
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal mb-2 leading-snug">Цифровая трихокамера Aramo SG</h3>
+                <p class="content-body text-charcoal leading-relaxed typographed">
+                  Микровидеодиагностика плотности волосяных фолликулов, диаметра стержня и&nbsp;состояния кожи головы.
+                </p>
+              </div>
+              <div class="pt-4 mt-6 border-t border-divider">
+                <span class="text-xs sm:text-sm font-semibold text-terracotta">Южная Корея</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Карточка 3 -->
+          <div class="equipment-card w-[85%] md:w-auto md:col-span-2 lg:col-span-1 shrink-0 md:shrink snap-start bg-surface border border-divider rounded-card overflow-hidden flex flex-col justify-between">
+            <div class="aspect-[16/10] bg-white overflow-hidden relative border-b border-divider">
+              <img 
+                src="assets/equipment-surgitron.jpg" 
+                alt="Радиоволновой аппарат Сургитрон" 
+                class="w-full h-full object-contain"
+              >
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-between">
+              <div>
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal mb-2 leading-snug">Радиоволновой аппарат Сургитрон</h3>
+                <p class="content-body text-charcoal leading-relaxed typographed">
+                  Бесшовное удаление папиллом, бородавок и&nbsp;кератом без&nbsp;рубцов с&nbsp;быстрым заживлением.
+                </p>
+              </div>
+              <div class="pt-4 mt-6 border-t border-divider">
+                <span class="text-xs sm:text-sm font-semibold text-terracotta">США</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ИНТЕРАКТИВНЫЙ БЛОК: КЛИНИЧЕСКИЙ РЕЗУЛЬТАТ -->
+      <section class="relative z-20 bg-canvas mt-[100px] lg:mt-[150px] w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-surface border border-divider rounded-card p-6 sm:p-10">
+          <div class="lg:col-span-5">
+            <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-charcoal leading-tight">
+              Клинический контроль терапии
+            </h2>
+            <p class="content-body text-charcoal typographed mt-4 sm:mt-6">
+              Сравнение состояния кожи до&nbsp;начала терапии и&nbsp;через 8&nbsp;недель комплексного лечения по&nbsp;доказательным протоколам клиники.
+            </p>
+            <div class="mt-8">
+              <button onclick="openBookingModal()" class="btn-action inline-flex items-center gap-2 px-6 py-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold transition-colors">
+                <span>Записаться на&nbsp;диагностику</span>
+                <i class="ph ph-arrow-right btn-arrow"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7">
+            <div class="before-after-container aspect-[16/10] rounded-card border border-divider" id="ba-container">
+              <img 
+                src="assets/ba-after.jpg" 
+                alt="После лечения" 
+                class="w-full h-full object-cover"
+              >
+              <div class="absolute bottom-3 right-3 bg-charcoal/70 text-white text-xs px-2.5 py-1 rounded-btn backdrop-blur-sm">
+                После терапии
+              </div>
+
+              <div class="before-after-overlay" id="ba-overlay">
+                <img 
+                  src="assets/ba-before.jpg" 
+                  alt="До лечения" 
+                  class="absolute top-0 left-0 max-w-none h-full object-cover"
+                  id="ba-before-img"
+                >
+                <div class="absolute bottom-3 left-3 bg-charcoal/70 text-white text-xs px-2.5 py-1 rounded-btn backdrop-blur-sm">
+                  До&nbsp;лечения
+                </div>
+              </div>
+
+              <div class="before-after-slider" id="ba-slider">
+                <div class="slider-handle">
+                  <i class="ph ph-arrows-left-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. ОТЗЫВЫ ПАЦИЕНТОВ -->
+      <section class="relative z-20 bg-canvas mt-[100px] lg:mt-[150px] w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-charcoal">
+              Отзывы пациентов
+            </h2>
+          </div>
+          <!-- Кнопка без фона и обводки -->
+          <a id="cms-yandex-reviews-link" href="https://yandex.ru/maps/" target="_blank" rel="noopener noreferrer" class="btn-action inline-flex items-center gap-2 text-charcoal hover:text-terracotta text-sm sm:text-base font-semibold transition-colors">
+            <i class="ph-fill ph-star text-terracotta text-lg"></i>
+            <span>Все отзывы на&nbsp;Яндекс Картах</span>
+            <i class="ph ph-arrow-up-right btn-arrow text-sm text-charcoal"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-6">
+          <div class="lg:col-span-3 rounded-card overflow-hidden bg-surface border border-divider min-h-[260px]">
+            <img 
+              src="assets/reviews-photo.jpg" alt="Здоровая кожа" 
+              class="w-full h-full object-cover"
+            >
+          </div>
+
+          <div class="lg:col-span-9 overflow-hidden relative" id="review-slider-container">
+            <div class="review-track flex gap-6" id="review-track">
+              
+              <div class="review-slide p-6 bg-surface border border-divider rounded-card flex flex-col justify-between">
+                <div>
+                  <div class="text-terracotta text-2xl font-serif mb-2 leading-none">“</div>
+                  <p class="content-body text-charcoal leading-relaxed mb-4 typographed">
+                    Обратилась к&nbsp;Татьяне Станиславовне Савина с&nbsp;застарелой проблемой кожи. Впервые доктор не&nbsp;стала назначать гору анализов, а&nbsp;четко определила диагноз и&nbsp;подобрала терапию. Через&nbsp;две недели увидела первые результаты!
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-divider">
+                  <p class="text-xs sm:text-sm font-bold text-charcoal">Алина М.</p>
+                  <p class="text-[11px] text-charcoal/80">Пациент дерматолога • Яндекс Карты</p>
+                </div>
+              </div>
+
+              <div class="review-slide p-6 bg-surface border border-divider rounded-card flex flex-col justify-between">
+                <div>
+                  <div class="text-terracotta text-2xl font-serif mb-2 leading-none">“</div>
+                  <p class="content-body text-charcoal leading-relaxed mb-4 typographed">
+                    Очень благодарна клинике и&nbsp;доктору Савиной! Доказательный подход во&nbsp;всём: подробнейший осмотр на&nbsp;дерматоскопе, спокойные понятные объяснения без&nbsp;запугивания и&nbsp;лишних трат. Лучшая клиника в&nbsp;городе!
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-divider">
+                  <p class="text-xs sm:text-sm font-bold text-charcoal">Екатерина С.</p>
+                  <p class="text-[11px] text-charcoal/80">Пациент дерматолога • Яндекс Карты</p>
+                </div>
+              </div>
+
+              <div class="review-slide p-6 bg-surface border border-divider rounded-card flex flex-col justify-between">
+                <div>
+                  <div class="text-terracotta text-2xl font-serif mb-2 leading-none">“</div>
+                  <p class="content-body text-charcoal leading-relaxed mb-4 typographed">
+                    Были с&nbsp;дочкой у&nbsp;Рушании Расиховны Зариповой. Три месяца никто не&nbsp;мог помочь, а&nbsp;здесь диагноз поставили моментально. На&nbsp;второй день лечения уже заметили улучшение на&nbsp;50%!
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-divider">
+                  <p class="text-xs sm:text-sm font-bold text-charcoal">Диана Р.</p>
+                  <p class="text-[11px] text-charcoal/80">Детский прием • ПроДокторов</p>
+                </div>
+              </div>
+
+              <div class="review-slide p-6 bg-surface border border-divider rounded-card flex flex-col justify-between">
+                <div>
+                  <div class="text-terracotta text-2xl font-serif mb-2 leading-none">“</div>
+                  <p class="content-body text-charcoal leading-relaxed mb-4 typographed">
+                    Приводили сына на&nbsp;осмотр к&nbsp;Татьяне Алексеевне Соколовой. Прекрасный детский дерматолог, моментально нашла контакт с&nbsp;ребенком, осмотр прошел в&nbsp;игровой форме и&nbsp;без слёз. Назначила бережное лечение.
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-divider">
+                  <p class="text-xs sm:text-sm font-bold text-charcoal">Мария П.</p>
+                  <p class="text-[11px] text-charcoal/80">Детский приём • Яндекс Карты</p>
+                </div>
+              </div>
+
+              <div class="review-slide p-6 bg-surface border border-divider rounded-card flex flex-col justify-between">
+                <div>
+                  <div class="text-terracotta text-2xl font-serif mb-2 leading-none">“</div>
+                  <p class="content-body text-charcoal leading-relaxed mb-4 typographed">
+                    Проходил трихоскопию у&nbsp;Татьяны Алексеевны Соколовой. Наглядно показали состояние фолликулов на&nbsp;экране аппарата, подобрали лечение без&nbsp;лишних процедур. Профессиональный подход!
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-divider">
+                  <p class="text-xs sm:text-sm font-bold text-charcoal">Сергей В.</p>
+                  <p class="text-[11px] text-charcoal/80">Пациент трихолога • 2ГИС</p>
+                </div>
+              </div>
+
+              <div class="review-slide p-6 bg-surface border border-divider rounded-card flex flex-col justify-between">
+                <div>
+                  <div class="text-terracotta text-2xl font-serif mb-2 leading-none">“</div>
+                  <p class="content-body text-charcoal leading-relaxed mb-4 typographed">
+                    Проверяла родинки и&nbsp;удаляла невус у&nbsp;Эльвиры Зуферовны Морозовой. Опытный врач высшей категории, ювелирная работа радиоволновым методом, зажило быстро и&nbsp;без следа. Огромное спасибо!
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-divider">
+                  <p class="text-xs sm:text-sm font-bold text-charcoal">Гульнара Х.</p>
+                  <p class="text-[11px] text-charcoal/80">Удаление новообразований • Яндекс Карты</p>
+                </div>
+              </div>
+
+              <div class="review-slide p-6 bg-surface border border-divider rounded-card flex flex-col justify-between">
+                <div>
+                  <div class="text-terracotta text-2xl font-serif mb-2 leading-none">“</div>
+                  <p class="content-body text-charcoal leading-relaxed mb-4 typographed">
+                    Клиника европейского уровня в&nbsp;Казани. Чистота, вежливые администраторы, приём строго по&nbsp;времени. Врачи руководствуются исключительно доказательной медициной. Однозначно рекомендую!
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-divider">
+                  <p class="text-xs sm:text-sm font-bold text-charcoal">Алексей Н.</p>
+                  <p class="text-[11px] text-charcoal/80">Пациент клиники • Яндекс Карты</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="flex items-center justify-center gap-2 mt-6" id="review-dots">
+              <button class="w-6 h-2.5 rounded-full bg-terracotta transition-all" onclick="setReviewSlide(0)"></button>
+              <button class="w-2.5 h-2.5 rounded-full bg-divider transition-all" onclick="setReviewSlide(2)"></button>
+              <button class="w-2.5 h-2.5 rounded-full bg-divider transition-all" onclick="setReviewSlide(4)"></button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 9. ЧАСТЫЕ ВОПРОСЫ (Пункт 3: описание убрано; карточки уже, p-[16px]; при раскрытии соседняя карточка не меняет высоту; ответ заканчивается до плюсика) -->
+      <section class="relative z-20 bg-canvas mt-[100px] lg:mt-[150px] w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+        <!-- Заголовок без описания -->
+        <div class="mb-8 sm:mb-10">
+          <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-charcoal leading-tight">
+            Частые вопросы
+          </h2>
+        </div>
+
+        <!-- Две независимые колонки карточек с отступами ровно 16px (p-4): при раскрытии соседняя карточка не деформируется -->
+        <div id="cms-faq-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+          
+          <!-- Столбец 1 (вопросы 1 и 3) -->
+          <div class="space-y-4">
+            <div class="faq-item bg-surface border border-divider rounded-card p-4 cursor-pointer hover:bg-[#E2DDD5] transition-colors" onclick="toggleFaq(this)">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex-grow pr-3">
+                  <span class="font-heading font-bold text-base sm:text-lg text-charcoal block leading-snug">Как&nbsp;подготовиться к&nbsp;приему дерматолога?</span>
+                  <div class="faq-desc content-body text-charcoal typographed"><div class="faq-desc-inner">За&nbsp;2–3&nbsp;дня до&nbsp;визита не&nbsp;наносите лечебные мази, йод и&nbsp;зеленку. Перед&nbsp;осмотром лица не&nbsp;рекомендуется использовать декоративный макияж.</div></div>
+                </div>
+                <!-- Крупный плюс w-10 h-10 -->
+                <div class="faq-icon w-9 h-9 sm:w-10 sm:h-10 rounded-btn bg-canvas border border-divider flex items-center justify-center shrink-0 transition-transform duration-200 mt-0.5">
+                  <i class="ph ph-plus text-base sm:text-lg text-charcoal font-bold"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item bg-surface border border-divider rounded-card p-4 cursor-pointer hover:bg-[#E2DDD5] transition-colors" onclick="toggleFaq(this)">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex-grow pr-3">
+                  <span class="font-heading font-bold text-base sm:text-lg text-charcoal block leading-snug">С&nbsp;какого возраста принимаете детей?</span>
+                  <div class="faq-desc content-body text-charcoal typographed"><div class="faq-desc-inner">Наши детские специалисты ведут прием малышей с&nbsp;первых дней жизни: атопический дерматит, младенческие гемангиомы, опрелости и&nbsp;аллергические высыпания.</div></div>
+                </div>
+                <div class="faq-icon w-9 h-9 sm:w-10 sm:h-10 rounded-btn bg-canvas border border-divider flex items-center justify-center shrink-0 transition-transform duration-200 mt-0.5">
+                  <i class="ph ph-plus text-base sm:text-lg text-charcoal font-bold"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Столбец 2 (вопросы 2 и 4) -->
+          <div class="space-y-4">
+            <div class="faq-item bg-surface border border-divider rounded-card p-4 cursor-pointer hover:bg-[#E2DDD5] transition-colors" onclick="toggleFaq(this)">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex-grow pr-3">
+                  <span class="font-heading font-bold text-base sm:text-lg text-charcoal block leading-snug">Нужно&nbsp;ли мыть голову перед&nbsp;трихоскопией?</span>
+                  <div class="faq-desc content-body text-charcoal typographed"><div class="faq-desc-inner">Рекомендуется помыть голову за&nbsp;24&nbsp;часа до&nbsp;приема и&nbsp;не&nbsp;наносить укладочные средства и&nbsp;сухие шампуни, чтобы&nbsp;врач оценил естественную секрецию кожи.</div></div>
+                </div>
+                <div class="faq-icon w-9 h-9 sm:w-10 sm:h-10 rounded-btn bg-canvas border border-divider flex items-center justify-center shrink-0 transition-transform duration-200 mt-0.5">
+                  <i class="ph ph-plus text-base sm:text-lg text-charcoal font-bold"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item bg-surface border border-divider rounded-card p-4 cursor-pointer hover:bg-[#E2DDD5] transition-colors" onclick="toggleFaq(this)">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex-grow pr-3">
+                  <span class="font-heading font-bold text-base sm:text-lg text-charcoal block leading-snug">Болезненно&nbsp;ли удаление родинок?</span>
+                  <div class="faq-desc content-body text-charcoal typographed"><div class="faq-desc-inner">Процедура проводится под&nbsp;локальной анестезией ультратонкими иглами. Пациент ощущает только легкое прикосновение. Радиоволна мгновенно коагулирует сосуды.</div></div>
+                </div>
+                <div class="faq-icon w-9 h-9 sm:w-10 sm:h-10 rounded-btn bg-canvas border border-divider flex items-center justify-center shrink-0 transition-transform duration-200 mt-0.5">
+                  <i class="ph ph-plus text-base sm:text-lg text-charcoal font-bold"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 10. КОНТАКТЫ (Пункт 4: правая и левая часть равны 50/50; заголовок выровнен по высоте с картой, под ним описание на всю ширину; отступ карты до подвала pb-[100px] lg:pb-[150px]; кнопка записи отступает от мессенджеров на +10px) -->
+      <section id="section-contacts" class="relative z-20 bg-canvas mt-[100px] lg:mt-[150px] w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 pb-[100px] lg:pb-[150px]">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          
+          <!-- Левая часть (50% ширины): Заголовок, описание на всю ширину и плашка контактов -->
+          <div class="flex flex-col justify-between space-y-6 h-full">
+            <div>
+              <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-charcoal leading-tight">
+                Контакты
+              </h2>
+              <p class="content-body text-charcoal typographed mt-4 sm:mt-6">
+                Забота о&nbsp;здоровье кожи начинается с&nbsp;одного шага. Запишитесь на&nbsp;консультацию&nbsp;— мы&nbsp;внимательно выслушаем, ответим на&nbsp;все волнующие вопросы и&nbsp;подберём бережное доказательное решение.
+              </p>
+            </div>
+
+            <div class="bg-surface border border-divider rounded-card p-6 sm:p-8 space-y-6 flex-grow flex flex-col justify-between">
+              <div>
+                <p class="text-xs text-charcoal/80 mb-1 font-semibold uppercase tracking-wider">Адрес клиники</p>
+                <p id="cms-contacts-address" class="font-heading font-bold text-lg sm:text-xl text-charcoal typographed">г.&nbsp;Казань, ул.&nbsp;Лесная,&nbsp;14</p>
+                <p id="cms-contacts-address-note" class="text-xs sm:text-sm text-charcoal/80 mt-1">Вахитовский район • Есть парковка для&nbsp;пациентов</p>
+              </div>
+
+              <div class="pt-4 border-t border-divider">
+                <p class="text-xs text-charcoal/80 mb-1 font-semibold uppercase tracking-wider">Телефон регистратуры</p>
+                <a href="tel:+79000000000" class="font-heading font-bold text-xl text-charcoal hover:text-terracotta transition-colors block">
+                  +7&nbsp;900&nbsp;000-00-00
+                </a>
+                <p id="cms-contacts-hours" class="text-xs sm:text-sm text-charcoal/80 mt-1">Ежедневно с&nbsp;09:00 до&nbsp;20:00</p>
+              </div>
+
+              <div class="pt-4 border-t border-divider">
+                <p class="text-xs text-charcoal/80 mb-2 font-semibold uppercase tracking-wider">Быстрая связь</p>
+                <!-- Отступ до кнопки увеличен на 10px (mb-[26px]) -->
+                <div class="flex gap-3 mb-[26px]">
+                  <a href="https://t.me/savinaclinic" target="_blank" class="px-4 py-2 bg-canvas hover:bg-surface border border-divider rounded-btn text-xs sm:text-sm font-semibold text-charcoal flex items-center gap-1.5 transition-colors">
+                    <i class="ph ph-telegram-logo text-base text-charcoal"></i> Telegram
+                  </a>
+                  <a href="https://wa.me/79000000000" target="_blank" class="px-4 py-2 bg-canvas hover:bg-surface border border-divider rounded-btn text-xs sm:text-sm font-semibold text-charcoal flex items-center gap-1.5 transition-colors">
+                    <i class="ph ph-whatsapp-logo text-base text-charcoal"></i> WhatsApp
+                  </a>
+                </div>
+
+                <button onclick="openBookingModal()" class="btn-action w-fit inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn font-semibold text-sm sm:text-base transition-colors duration-200">
+                  <span>Записаться на&nbsp;прием</span>
+                  <i class="ph ph-arrow-right btn-arrow text-base"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Правая часть (50% ширины): Интерактивная карта, начинающаяся вровень с заголовком слева -->
+          <div class="w-full h-full min-h-[460px] sm:min-h-[520px] rounded-card overflow-hidden border border-divider bg-surface relative">
+            <iframe 
+              src="https://yandex.ru/map-widget/v1/?ll=49.122141%2C55.788740&z=14" 
+              width="100%" 
+              height="100%" 
+              frameborder="0" 
+              allowfullscreen="true" 
+              style="position:relative; border:0; min-height: 100%;"
+              title="Савина Клиник на Яндекс.Картах">
+            </iframe>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- СТРАНИЦА: ЛИЦЕНЗИИ И СЕРТИФИКАТЫ -->
+    <div id="page-licenses" class="page-view">
+      <section class="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 pt-[140px] lg:pt-[170px] pb-[100px] lg:pb-[150px]">
+        <nav class="flex items-center gap-2 text-xs sm:text-sm text-charcoal/80 mb-6">
+          <a href="#home" onclick="navigateTo(event, 'home')" class="hover:text-terracotta">Главная</a>
+          <i class="ph ph-caret-right"></i>
+          <span class="text-charcoal font-semibold">Лицензии и&nbsp;сертификаты</span>
+        </nav>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-charcoal mb-4">Лицензии клиники</h1>
+        <p class="content-body text-charcoal max-w-2xl mb-8 typographed">
+          Медицинская деятельность осуществляется на&nbsp;основании официальной лицензии Министерства здравоохранения Республики Татарстан.
+        </p>
+
+        <div id="cms-licenses-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="bg-surface border border-divider rounded-card p-4 space-y-3">
+            <div class="aspect-[3/4] bg-white rounded-card border border-divider overflow-hidden flex items-center justify-center">
+              <img src="assets/license-1.svg" alt="Лицензия лист 1" class="w-full h-full object-cover">
+            </div>
+            <p class="text-xs sm:text-sm font-bold text-charcoal">Медицинская лицензия (Лист&nbsp;1)</p>
+            <p class="text-[11px] text-charcoal/80">№&nbsp;ЛО41-00000-16/00000000</p>
+          </div>
+          <div class="bg-surface border border-divider rounded-card p-4 space-y-3">
+            <div class="aspect-[3/4] bg-white rounded-card border border-divider overflow-hidden flex items-center justify-center">
+              <img src="assets/license-2.svg" alt="Приложение к лицензии" class="w-full h-full object-cover">
+            </div>
+            <p class="text-xs sm:text-sm font-bold text-charcoal">Приложение к&nbsp;лицензии</p>
+            <p class="text-[11px] text-charcoal/80">Виды медицинской помощи</p>
+          </div>
+          <div class="bg-surface border border-divider rounded-card p-4 space-y-3">
+            <div class="aspect-[3/4] bg-white rounded-card border border-divider overflow-hidden flex items-center justify-center">
+              <img src="assets/license-3.svg" alt="Санитарно-эпидемиологическое заключение" class="w-full h-full object-cover">
+            </div>
+            <p class="text-xs sm:text-sm font-bold text-charcoal">Санитарно-эпидемиологическое заключение</p>
+            <p class="text-[11px] text-charcoal/80">Соответствие нормам СанПиН</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- СТРАНИЦА: УСЛУГИ И ЦЕНЫ (Каталог) -->
+    <div id="page-services" class="page-view">
+      <section class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 pt-[140px] lg:pt-[170px] pb-[100px] lg:pb-[150px]">
+        <!-- Хлебные крошки -->
+        <nav class="flex items-center gap-2 text-xs sm:text-sm text-charcoal/80 mb-6">
+          <a href="#home" onclick="navigateTo(event, 'home')" class="hover:text-terracotta transition-colors">Главная</a>
+          <i class="ph ph-caret-right"></i>
+          <span class="text-charcoal font-semibold">Каталог услуг</span>
+        </nav>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-charcoal mb-4">Услуги и&nbsp;стоимость</h1>
+        <p class="content-body text-charcoal max-w-2xl mb-8 typographed">
+          Все приемы и&nbsp;манипуляции проводятся строго по&nbsp;клиническим протоколам с&nbsp;доказанной эффективностью.
+        </p>
+
+        <!-- 5 табов разделов: активный сплошной терракот, неактивный пунктирный -->
+        <div class="flex flex-wrap items-center gap-3 mb-10 overflow-x-auto pb-2 scrollbar-none" id="services-tabs">
+          <button onclick="switchServiceCategory('dermatology')" id="tab-dermatology" class="service-tab px-5 py-2.5 rounded-[12px] font-semibold text-sm sm:text-base transition-all bg-terracotta text-white shadow-sm">
+            Дерматология
+          </button>
+          <button onclick="switchServiceCategory('trichology')" id="tab-trichology" class="service-tab px-5 py-2.5 rounded-[12px] font-medium text-sm sm:text-base transition-all border border-dashed border-[#5A554E]/40 text-charcoal hover:border-terracotta bg-transparent">
+            Трихология
+          </button>
+          <button onclick="switchServiceCategory('pediatric')" id="tab-pediatric" class="service-tab px-5 py-2.5 rounded-[12px] font-medium text-sm sm:text-base transition-all border border-dashed border-[#5A554E]/40 text-charcoal hover:border-terracotta bg-transparent">
+            Детский прием
+          </button>
+          <button onclick="switchServiceCategory('cosmetology')" id="tab-cosmetology" class="service-tab px-5 py-2.5 rounded-[12px] font-medium text-sm sm:text-base transition-all border border-dashed border-[#5A554E]/40 text-charcoal hover:border-terracotta bg-transparent">
+            Косметология
+          </button>
+          <button onclick="switchServiceCategory('removal')" id="tab-removal" class="service-tab px-5 py-2.5 rounded-[12px] font-medium text-sm sm:text-base transition-all border border-dashed border-[#5A554E]/40 text-charcoal hover:border-terracotta bg-transparent">
+            Удаление новообразований
+          </button>
+        </div>
+
+        <!-- Контейнер карточек услуг -->
+        <div class="space-y-4" id="services-cards-container">
+          <!-- Карточки генерируются динамически -->
+        </div>
+      </section>
+    </div>
+
+    <!-- СТРАНИЦА: КАТАЛОГ ВРАЧЕЙ -->
+    <div id="page-doctors" class="page-view">
+      <section class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 pt-[140px] lg:pt-[170px] pb-[100px] lg:pb-[150px]">
+        <nav class="flex items-center gap-2 text-xs sm:text-sm text-charcoal/80 mb-6">
+          <a href="#home" onclick="navigateTo(event, 'home')" class="hover:text-terracotta">Главная</a>
+          <i class="ph ph-caret-right"></i>
+          <span class="text-charcoal font-semibold">Врачи</span>
+        </nav>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-charcoal mb-4">Врачи Савина Клиник</h1>
+        <p class="content-body text-charcoal max-w-2xl mb-8 typographed">
+          Специалисты с&nbsp;доказательной практикой, высшими категориями и&nbsp;непрерывным повышением квалификации.
+        </p>
+
+        <div id="catalog-doctors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div class="bg-surface border border-divider rounded-card p-4 flex flex-col justify-between">
+            <a href="#doctor-savina" onclick="navigateTo(event, 'doctor-savina')" class="block group">
+              <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-4">
+                <img src="assets/doctor-savina.jpg" alt="Татьяна Савина" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+              </div>
+              <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                Савина Татьяна Станиславовна
+              </h3>
+              <p class="text-[16px] text-charcoal mt-1.5">Главный врач, дерматовенеролог, трихолог</p>
+              <p class="text-xs sm:text-sm font-semibold text-terracotta mt-1">Стаж 11&nbsp;лет</p>
+            </a>
+            <div class="mt-4">
+              <button onclick="openBookingModal('Татьяна Савина')" class="btn-action w-full min-h-[46px] py-2.5 px-4 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                <span>Записаться к&nbsp;врачу</span>
+                <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-surface border border-divider rounded-card p-4 flex flex-col justify-between">
+            <a href="#doctor-morozova" onclick="navigateTo(event, 'doctor-morozova')" class="block group">
+              <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-4">
+                <img src="assets/doctor-morozova.jpg" alt="Морозова Эльвира Зуферовна" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+              </div>
+              <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                Морозова Эльвира Зуферовна
+              </h3>
+              <p class="text-[16px] text-charcoal mt-1.5">Дерматовенеролог, детский дерматолог, онкодерматолог</p>
+              <p class="text-xs sm:text-sm font-semibold text-terracotta mt-1">Стаж 20&nbsp;лет • Высшая категория</p>
+            </a>
+            <div class="mt-4">
+              <button onclick="openBookingModal('Морозова Эльвира Зуферовна')" class="btn-action w-full min-h-[46px] py-3 px-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                <span>Записаться к&nbsp;врачу</span>
+                <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-surface border border-divider rounded-card p-4 flex flex-col justify-between">
+            <a href="#doctor-zaripova" onclick="navigateTo(event, 'doctor-zaripova')" class="block group">
+              <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-4">
+                <img src="assets/doctor-zaripova.jpg" alt="Зарипова Рушания Расиховна" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+              </div>
+              <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                Зарипова Рушания Расиховна
+              </h3>
+              <p class="text-[16px] text-charcoal mt-1.5">Дерматолог, венеролог, детский дерматолог</p>
+              <p class="text-xs sm:text-sm font-semibold text-terracotta mt-1">Стаж 11&nbsp;лет • Высшая категория</p>
+            </a>
+            <div class="mt-4">
+              <button onclick="openBookingModal('Зарипова Рушания Расиховна')" class="btn-action w-full min-h-[46px] py-2.5 px-4 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                <span>Записаться к&nbsp;врачу</span>
+                <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-surface border border-divider rounded-card p-4 flex flex-col justify-between">
+            <a href="#doctor-sokolova" onclick="navigateTo(event, 'doctor-sokolova')" class="block group">
+              <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-4">
+                <img src="assets/doctor-sokolova.jpg" alt="Соколова Татьяна Алексеевна" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+              </div>
+              <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                Соколова Татьяна Алексеевна
+              </h3>
+              <p class="text-[16px] text-charcoal mt-1.5">Детский дерматолог, дерматолог, трихолог</p>
+              <p class="text-xs sm:text-sm font-semibold text-terracotta mt-1">Стаж 6&nbsp;лет</p>
+            </a>
+            <div class="mt-4">
+              <button onclick="openBookingModal('Соколова Татьяна Алексеевна')" class="btn-action w-full min-h-[46px] py-3 px-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                <span>Записаться к&nbsp;врачу</span>
+                <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- СТРАНИЦА: ВРАЧ ТАТЬЯНА САВИНА -->
+    <div id="doctor-pages-container"></div>
+
+  </main>
+
+  <!-- ==================== ФУТЕР ==================== -->
+  <footer class="relative z-20 bg-charcoal text-canvas border-t border-[#3D3934]">
+    <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-terracotta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L12 22M12 22C12 22 7 18 5 12C3 6 7 2 12 2M12 22C12 22 17 18 19 12C21 6 17 2 12 2" stroke-linecap="round"/>
+            </svg>
+            <span class="font-heading font-extrabold text-base text-white">Савина&nbsp;Клиник</span>
+          </div>
+          <p class="text-xs sm:text-sm text-surface/80 leading-relaxed typographed">
+            Медицинский центр доказательной дерматологии и&nbsp;трихологии в&nbsp;Казани.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold text-white mb-3 uppercase tracking-wider">Навигация</p>
+          <ul class="space-y-2 text-xs sm:text-sm text-surface/80">
+            <li><a href="#home" onclick="navigateTo(event, 'home')" class="hover:text-white transition-colors">Главная</a></li>
+            <li><a href="#services" onclick="navigateTo(event, 'services')" class="hover:text-white transition-colors">Услуги</a></li>
+            <li><a href="#doctors" onclick="navigateTo(event, 'doctors')" class="hover:text-white transition-colors">Врачи</a></li>
+            <li><a href="#licenses" onclick="navigateTo(event, 'licenses')" class="hover:text-white transition-colors">Лицензии</a></li>
+            <li><a href="#contacts" onclick="scrollToAnchor(event, 'section-contacts')" class="hover:text-white transition-colors">Контакты</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold text-white mb-3 uppercase tracking-wider">Контакты</p>
+          <p class="text-xs sm:text-sm text-surface/80 leading-relaxed typographed">
+            <span id="cms-footer-contacts">г.&nbsp;Казань, ул.&nbsp;Лесная,&nbsp;14<br>+7&nbsp;900&nbsp;000-00-00<br>Ежедневно с&nbsp;09:00 до&nbsp;20:00</span>
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold text-white mb-3 uppercase tracking-wider">Информация</p>
+          <p class="text-xs text-surface/60 leading-relaxed typographed">
+            <span id="cms-footer-license">Медицинская лицензия №&nbsp;ЛО41-00000-16/00000000.</span><br>
+            Имеются противопоказания. Требуется консультация специалиста.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-[#3D3934] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-surface/60">
+        <p>© 2026 Савина&nbsp;Клиник. Все права защищены.</p>
+        <p>Политика обработки персональных данных (152-ФЗ)</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== КНОПКА «НАВЕРХ» ==================== -->
+  <button
+    id="scroll-to-top-btn"
+    type="button"
+    onclick="scrollToTop()"
+    aria-label="Наверх"
+    class="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-40 w-12 h-12 rounded-full bg-terracotta hover:bg-terracotta-dark text-white shadow-lg border border-white/20 flex items-center justify-center opacity-0 translate-y-4 pointer-events-none transition-all duration-300"
+  >
+    <i class="ph ph-arrow-up text-xl font-bold"></i>
+  </button>
+
+  <!-- ==================== МОДАЛЬНОЕ ОКНО ЗАПИСИ ==================== -->
+  <div id="booking-modal" onclick="if(event.target===this) closeBookingModal()" class="booking-modal-backdrop fixed inset-0 z-50 bg-charcoal/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div id="booking-modal-card" class="booking-modal-card bg-canvas border border-divider rounded-card max-w-md w-full p-6 sm:p-8 relative">
+      <button onclick="closeBookingModal()" aria-label="Закрыть окно" class="absolute top-4 right-4 text-charcoal hover:text-terracotta p-1.5 transition-colors">
+        <i class="ph ph-x text-xl"></i>
+      </button>
+
+      <div id="booking-form-view">
+        <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal mb-2">Запись на&nbsp;прием</h3>
+        <p class="content-body text-charcoal mb-6 typographed">
+          Оставьте контакты, и&nbsp;администратор перезвонит вам для&nbsp;уточнения даты и&nbsp;времени приёма.
+        </p>
+
+        <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="space-y-4">
+          <div>
+            <label for="modal-name-input" class="block text-sm sm:text-base font-bold text-charcoal mb-1.5">Имя, фамилия</label>
+            <input id="modal-name-input" type="text" required placeholder="Иван Иванов" class="w-full px-4 py-2.5 rounded-btn bg-surface border border-divider text-charcoal text-base sm:text-sm focus:outline-none focus:border-terracotta transition-colors">
+          </div>
+
+          <div>
+            <label for="modal-phone-input" class="block text-sm sm:text-base font-bold text-charcoal mb-1.5">Номер телефона</label>
+            <input id="modal-phone-input" type="tel" required inputmode="tel" placeholder="+7 (___) ___-__-__" class="w-full px-4 py-2.5 rounded-btn bg-surface border border-divider text-charcoal text-base sm:text-sm focus:outline-none focus:border-terracotta transition-colors">
+          </div>
+
+          <div>
+            <label for="modal-doctor-select" class="block text-sm sm:text-base font-bold text-charcoal mb-1.5">Врач или&nbsp;направление</label>
+            <div class="relative">
+              <select id="modal-doctor-select" class="w-full appearance-none pl-4 pr-11 py-2.5 rounded-btn bg-surface border border-divider text-charcoal text-base sm:text-sm focus:outline-none focus:border-terracotta transition-colors">
+                <option value="Любой специалист">Любой свободный специалист</option>
+                <option value="Татьяна Савина">Савина Татьяна Станиславовна (Главный врач)</option>
+                <option value="Морозова Эльвира Зуферовна">Морозова Эльвира Зуферовна (Высшая категория, стаж 20&nbsp;лет)</option>
+                <option value="Зарипова Рушания Расиховна">Зарипова Рушания Расиховна (Высшая категория, 1&nbsp;место ПроДокторов)</option>
+                <option value="Соколова Татьяна Алексеевна">Соколова Татьяна Алексеевна (Детский дерматолог, трихолог)</option>
+              </select>
+              <i class="ph ph-caret-down text-charcoal text-base pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"></i>
+            </div>
+          </div>
+
+          <label class="flex items-start gap-2.5 cursor-pointer select-none pt-1">
+            <input id="modal-consent-checkbox" type="checkbox" required checked class="mt-0.5 w-4 h-4 rounded accent-[#B85D46] border-divider shrink-0">
+            <span class="text-xs text-charcoal/80 leading-snug">
+              Соглашаюсь на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;Федеральным законом №&nbsp;152-ФЗ и&nbsp;Политикой конфиденциальности.
+            </span>
+          </label>
+
+          <button type="submit" class="btn-action w-full py-3.5 px-6 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors">
+            <span>Отправить заявку</span>
+            <i class="ph ph-arrow-right btn-arrow"></i>
+          </button>
+        </form>
+      </div>
+
+      <div id="booking-success-view" class="hidden text-center py-4 space-y-4">
+        <div class="w-14 h-14 rounded-full bg-terracotta/15 text-terracotta flex items-center justify-center mx-auto">
+          <i class="ph-fill ph-check-circle text-3xl"></i>
+        </div>
+        <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal">Заявка принята!</h3>
+        <p id="booking-success-text" class="content-body text-charcoal typographed">
+          Спасибо! Администратор клиники свяжется с&nbsp;вами в&nbsp;течение 10&nbsp;минут для&nbsp;подтверждения времени приёма.
+        </p>
+        <div class="pt-2">
+          <button type="button" onclick="closeBookingModal()" class="w-full py-3 px-6 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn font-semibold text-sm sm:text-base transition-colors">
+            Вернуться на&nbsp;сайт
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== СКРИПТЫ ==================== -->
+  <script>
+    function typographRussianText(root = document.body) {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+      let node;
+      const prepositions = ['в', 'на', 'с', 'по', 'к', 'о', 'об', 'от', 'до', 'из', 'у', 'за', 'под', 'над', 'при', 'и', 'а', 'но', 'да', 'или', 'не', 'ни', 'для', 'со', 'во', 'ко', 'обо', 'про', 'без', 'через', 'над', 'перед', 'между', 'как', 'что', 'чтобы'];
+      const particles = ['ли', 'же', 'бы', 'б', 'ж'];
+      const prepRegex = new RegExp('(^|[\\s\\u00A0(«"])(' + prepositions.join('|') + ')[\\s\\u00A0]+', 'gi');
+      const particleRegex = new RegExp('[\\s\\u00A0]+(' + particles.join('|') + ')(?=[\\s\\u00A0.,!?:;)»"]|$)', 'gi');
+
+      while ((node = walker.nextNode())) {
+        if (!node.parentElement || ['SCRIPT', 'STYLE', 'IFRAME', 'TEXTAREA'].includes(node.parentElement.tagName)) continue;
+        let text = node.nodeValue;
+        // Двукратный проход для цепочек коротких предлогов/союзов («и в», «но не»)
+        text = text.replace(prepRegex, '$1$2\u00A0');
+        text = text.replace(prepRegex, '$1$2\u00A0');
+        text = text.replace(particleRegex, '\u00A0$1');
+        text = text.replace(/([\\s\\u00A0])[-–]([\\s\\u00A0])/g, '$1—$2');
+        text = text.replace(/([\\s\\u00A0])—([\\s\\u00A0])/g, '\u00A0—$2');
+        text = text.replace(/(\d+)[\\s\\u00A0]+(лет|год|года|мин\.?|руб\.?|₽|px)/gi, '$1\u00A0$2');
+        node.nodeValue = text;
+      }
+    }
+
+    let lenisInstance = null;
+
+    function initSmoothScroll() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced || typeof Lenis === 'undefined') return;
+
+      lenisInstance = new Lenis({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 1.2
+      });
+
+      if (window.gsap && window.ScrollTrigger) {
+        lenisInstance.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenisInstance.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+      } else {
+        function raf(time) {
+          lenisInstance.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+    }
+
+    function smoothScrollToY(targetY) {
+      if (lenisInstance) {
+        lenisInstance.scrollTo(targetY, { duration: 1.1 });
+      } else {
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+      }
+    }
+
+    function navigateTo(e, pageId, updateHash = true) {
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      const target = document.getElementById('page-' + pageId);
+      if (!target) return;
+
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active-page'));
+      target.classList.add('active-page');
+      target.style.opacity = '1';
+      target.style.transform = 'none';
+
+      if (updateHash && window.history && window.history.replaceState) {
+        try {
+          window.history.replaceState(null, '', pageId === 'home' ? '#home' : '#' + pageId);
+        } catch (err) {}
+      }
+
+      if (lenisInstance) {
+        lenisInstance.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
+
+      if (window.gsap) {
+        gsap.fromTo(
+          target,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', clearProps: 'opacity,transform' }
+        );
+        const pageH1 = target.querySelector('h1');
+        if (pageH1) {
+          animateHeadingBlurWords(pageH1, false);
+        }
+      }
+      if (window.ScrollTrigger) {
+        setTimeout(() => ScrollTrigger.refresh(), 100);
+      }
+    }
+
+    function scrollToAnchor(e, anchorId) {
+      if (e) e.preventDefault();
+      const homeView = document.getElementById('page-home');
+      const wasHomeActive = homeView && homeView.classList.contains('active-page');
+      if (!wasHomeActive) {
+        navigateTo(null, 'home');
+      }
+      setTimeout(() => {
+        const el = document.getElementById(anchorId);
+        if (el) {
+          const headerOffset = 80;
+          if (lenisInstance) {
+            lenisInstance.scrollTo(el, { offset: -headerOffset, duration: 1.15 });
+          } else {
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }
+      }, wasHomeActive ? 10 : 60);
+    }
+
+    function toggleFaq(element) {
+      const isOpen = element.classList.contains('open');
+      element.classList.toggle('open');
+    }
+
+    let currentReviewIndex = 0;
+
+    function getReviewStep() {
+      return window.innerWidth >= 768 ? 2 : 1; // На мобильных пролистывание по 1 карточке, на десктопе по 2
+    }
+
+    function renderReviewDots() {
+      const dotsContainer = document.getElementById('review-dots');
+      const slides = document.querySelectorAll('.review-slide');
+      if (!dotsContainer || slides.length === 0) return;
+
+      const step = getReviewStep();
+      const visibleCount = window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+      const maxIndex = Math.max(0, slides.length - visibleCount);
+
+      const positions = [];
+      for (let i = 0; i <= maxIndex; i += step) {
+        positions.push(i);
+      }
+
+      dotsContainer.innerHTML = positions.map(pos => `
+        <button class="w-2.5 h-2.5 rounded-full bg-divider transition-all" onclick="setReviewSlide(${pos})" aria-label="Отзыв ${pos + 1}"></button>
+      `).join('');
+    }
+
+    function setReviewSlide(index) {
+      const track = document.getElementById('review-track');
+      const slides = document.querySelectorAll('.review-slide');
+      if (!track || slides.length === 0) return;
+
+      const step = getReviewStep();
+      const visibleCount = window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+      const maxIndex = Math.max(0, slides.length - visibleCount);
+      currentReviewIndex = Math.min(Math.max(0, index), maxIndex);
+
+      const slideWidth = slides[0].offsetWidth + 24; // карточка + gap
+      track.style.transform = `translateX(-${currentReviewIndex * slideWidth}px)`;
+
+      const dots = document.querySelectorAll('#review-dots button');
+      const activeDotIndex = Math.min(dots.length - 1, Math.round(currentReviewIndex / step));
+      dots.forEach((dot, idx) => {
+        if (idx === activeDotIndex) {
+          dot.className = 'w-6 h-2.5 rounded-full bg-terracotta transition-all';
+        } else {
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-divider transition-all';
+        }
+      });
+    }
+
+    function initReviewSwipe() {
+      const container = document.getElementById('review-slider-container');
+      if (!container) return;
+      let startX = 0;
+      container.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+      container.addEventListener('touchend', (e) => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+          const step = getReviewStep();
+          setReviewSlide(currentReviewIndex + (diff > 0 ? step : -step));
+        }
+      });
+      window.addEventListener('resize', () => {
+        renderReviewDots();
+        setReviewSlide(currentReviewIndex);
+      });
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-menu-drawer');
+      if (!drawer) return;
+      const isOpen = drawer.classList.contains('opacity-100');
+      if (isOpen) {
+        drawer.classList.remove('opacity-100', 'pointer-events-auto');
+        drawer.classList.add('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = '';
+        if (lenisInstance) lenisInstance.start();
+      } else {
+        drawer.classList.remove('opacity-0', 'pointer-events-none');
+        drawer.classList.add('opacity-100', 'pointer-events-auto');
+        document.body.style.overflow = 'hidden';
+        if (lenisInstance) lenisInstance.stop();
+      }
+    }
+
+    function closeMobileMenuAndNavigate(e, pageId) {
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      toggleMobileMenu();
+      navigateTo(null, pageId);
+    }
+
+    function closeMobileMenuAndScroll(e, anchorId) {
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      toggleMobileMenu();
+      scrollToAnchor(null, anchorId);
+    }
+
+    function initBeforeAfter() {
+      const container = document.getElementById('ba-container');
+      const overlay = document.getElementById('ba-overlay');
+      const slider = document.getElementById('ba-slider');
+      const beforeImg = document.getElementById('ba-before-img');
+      if (!container || !overlay || !slider || !beforeImg) return;
+
+      function updateDimensions() {
+        beforeImg.style.width = container.offsetWidth + 'px';
+      }
+      window.addEventListener('resize', updateDimensions);
+      updateDimensions();
+
+      let isDragging = false;
+      function setPosition(x) {
+        const rect = container.getBoundingClientRect();
+        let pos = (x - rect.left) / rect.width;
+        if (pos < 0) pos = 0;
+        if (pos > 1) pos = 1;
+        const percentage = pos * 100;
+        overlay.style.width = percentage + '%';
+        slider.style.left = percentage + '%';
+      }
+
+      container.addEventListener('mousedown', (e) => { isDragging = true; setPosition(e.clientX); });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+      window.addEventListener('mousemove', (e) => { if (isDragging) setPosition(e.clientX); });
+
+      container.addEventListener('touchstart', (e) => { isDragging = true; setPosition(e.touches[0].clientX); });
+      window.addEventListener('touchend', () => { isDragging = false; });
+      window.addEventListener('touchmove', (e) => { if (isDragging) setPosition(e.touches[0].clientX); });
+    }
+
+    function openBookingModal(doctorName = '') {
+      const modal = document.getElementById('booking-modal');
+      const formView = document.getElementById('booking-form-view');
+      const successView = document.getElementById('booking-success-view');
+      const select = document.getElementById('modal-doctor-select');
+
+      if (formView && successView) {
+        formView.classList.remove('hidden');
+        successView.classList.add('hidden');
+      }
+
+      if (doctorName && select) {
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].text.includes(doctorName) || select.options[i].value.includes(doctorName)) {
+            select.selectedIndex = i;
+            break;
+          }
+        }
+      }
+      if (modal) {
+        requestAnimationFrame(() => {
+          modal.classList.add('is-open');
+        });
+        document.body.style.overflow = 'hidden';
+        if (lenisInstance) lenisInstance.stop();
+      }
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      if (modal) {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (lenisInstance) lenisInstance.start();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('booking-modal');
+        if (modal && modal.classList.contains('is-open')) {
+          closeBookingModal();
+        }
+      }
+    });
+
+    const DEFAULT_CMS_DATA = {
+  "clinic": {
+    "name": "Савина Клиник",
+    "phone": "+7 900 000-00-00",
+    "phoneHref": "tel:+79000000000",
+    "address": "г. Казань, ул. Лесная, 14",
+    "addressShort": "ул. Лесная, 14",
+    "addressNote": "Вахитовский район • Есть парковка для пациентов",
+    "hours": "Ежедневно с 09:00 до 20:00",
+    "telegram": "https://t.me/savinaclinic",
+    "whatsapp": "https://wa.me/79000000000",
+    "yandexReviewsUrl": "https://yandex.ru/maps/",
+    "licenseNumber": "№ ЛО41-00000-16/00000000",
+    "licenseIssued": "от 15.05.2022 выдана Министерством здравоохранения РТ",
+    "web3formsKey": ""
+  },
+  "hero": {
+    "badgeLocation": "ул. Лесная, 14",
+    "badgePediatric": "Детский прием с рождения",
+    "title": "Экспертная дерматология и трихология в Казани",
+    "subtitleLine1": "Бережное и доказательное лечение кожи, волос и ногтей для взрослых и детей.",
+    "subtitleLine2": "Современное оборудование и врачи с доказательной практикой.",
+    "quoteText": "«Наша цель — восстановить здоровье кожи без лишних назначений и тревоги, окружая заботой каждого пациента».",
+    "quoteAuthor": "Татьяна Савина",
+    "quoteRole": "Основательница и главный врач клиники • Стаж 11 лет",
+    "quotePhoto": "assets/doctor-savina.jpg"
+  },
+  "homeServices": [
+    {
+      "key": "dermatology",
+      "title": "Дерматология",
+      "description": "Лечение акне, розацеа, себорейного дерматита, экземы, псориаза и аллергических реакций кожи по стандартам доказательной практики.",
+      "priceFrom": "от 2 500 ₽",
+      "image": "assets/service-dermatology.jpg"
+    },
+    {
+      "key": "trichology",
+      "title": "Трихология",
+      "description": "Цифровая трихоскопия, диагностика причин выпадения волос, терапия заболеваний кожи волосистой части головы.",
+      "priceFrom": "от 2 800 ₽"
+    },
+    {
+      "key": "pediatric",
+      "title": "Детям",
+      "description": "Бережный прием новорожденных и подростков. Лечение младенческих дерматозов, атопического дерматита, вирусных бородавок и сыпей.",
+      "priceFrom": "от 2 300 ₽"
+    },
+    {
+      "key": "cosmetology",
+      "title": "Косметология",
+      "description": "Медицинские уходы, атравматичные чистки, восстановительные пилинги и аппаратные методики коррекции постакне и текстуры кожи.",
+      "priceFrom": "от 3 000 ₽"
+    }
+  ],
+  "doctors": [
+    {
+      "slug": "savina",
+      "name": "Савина Татьяна Станиславовна",
+      "shortName": "Татьяна Савина",
+      "bookingOptionLabel": "Савина Татьяна Станиславовна (Главный врач)",
+      "photo": "assets/doctor-savina.jpg",
+      "badge": "Рейтинг 5.0",
+      "badgeAccent": false,
+      "specialty": "Главный врач, дерматовенеролог, трихолог",
+      "roleFull": "Основательница и главный врач клиники, дерматовенеролог, трихолог",
+      "experience": "Стаж 11 лет",
+      "profileMeta": "Клинический стаж: 11 лет • Рейтинг ПроДокторов 5.0 (53 отзыва)",
+      "specializationTitle": "Специализация и профиль приёма:",
+      "specializationItems": [
+        "Цифровая оптическая дерматоскопия и ранее выявление меланомы и базалиомы;",
+        "Диагностика и составление карты невусов (родинок), папиллом, кератом;",
+        "Терапия хронических дерматозов: псориаз, себорейный дерматит, розацеа, акне;",
+        "Трихоскопия и комплексное ведение алопеции (выпадения волос)."
+      ],
+      "educationTitle": "Образование и опыт работы:",
+      "educationText": "Казанский государственный медицинский университет (2015, Лечебное дело; 2017, ординатура по дерматовенерологии). Опыт работы: Городская клиническая больница (2016–2024), профильный дерматологический центр (2015–2019). С 2023 года — главный врач «Савина Клиник»."
+    },
+    {
+      "slug": "morozova",
+      "name": "Морозова Эльвира Зуферовна",
+      "shortName": "Морозова Эльвира Зуферовна",
+      "bookingOptionLabel": "Морозова Эльвира Зуферовна (Высшая категория, стаж 20 лет)",
+      "photo": "assets/doctor-morozova.jpg",
+      "badge": "Высшая категория",
+      "badgeAccent": false,
+      "specialty": "Дерматовенеролог, детский дерматолог, онкодерматолог",
+      "roleFull": "Дерматовенеролог, детский дерматолог, онкодерматолог",
+      "experience": "Стаж 20 лет • Высшая категория",
+      "profileMeta": "Высшая категория • Клинический стаж: 20 лет • Рейтинг 5.0",
+      "specializationTitle": "Специализация:",
+      "specializationItems": [
+        "Детский прием с первых дней жизни: ведение атопического дерматита, аллергических дерматозов;",
+        "Диагностика новообразований кожи и дерматоонкология;",
+        "Терапия угревой болезни (акне) и постакне;",
+        "Языки общения: русский, татарский."
+      ],
+      "educationTitle": "Образование:",
+      "educationText": "Казанский государственный медицинский университет (2006, Педиатрия; 2008, ординатура по дерматовенерологии). Повышение квалификации в КГМА (2018, 2019)."
+    },
+    {
+      "slug": "zaripova",
+      "name": "Зарипова Рушания Расиховна",
+      "shortName": "Зарипова Рушания Расиховна",
+      "bookingOptionLabel": "Зарипова Рушания Расиховна (Высшая категория, 1 место ПроДокторов)",
+      "photo": "assets/doctor-zaripova.jpg",
+      "badge": "1 место ПроДокторов",
+      "badgeAccent": true,
+      "specialty": "Дерматолог, венеролог, детский дерматолог",
+      "roleFull": "Дерматолог, венеролог, детский дерматолог",
+      "experience": "Стаж 11 лет • Высшая категория",
+      "profileMeta": "Высшая категория • Стаж: 11 лет • Победитель премии ПроДокторов 2026 (1 место)",
+      "specializationTitle": "Специализация:",
+      "specializationItems": [
+        "Быстрая и точная диагностика редких и осложненных дерматозов;",
+        "Комплексное ведение тяжелых форм акне (системные ретиноиды);",
+        "Детская дерматология без слез и стресса;",
+        "Медицинская косметология и уход за чувствительной кожей."
+      ],
+      "educationTitle": "Образование:",
+      "educationText": "КГМУ (2015, Лечебное дело; 2017, ординатура по дерматовенерологии). Казанский федеральный университет (2024, переподготовка по косметологии)."
+    },
+    {
+      "slug": "sokolova",
+      "name": "Соколова Татьяна Алексеевна",
+      "shortName": "Соколова Татьяна Алексеевна",
+      "bookingOptionLabel": "Соколова Татьяна Алексеевна (Детский дерматолог, трихолог)",
+      "photo": "assets/doctor-sokolova.jpg",
+      "badge": "Рейтинг 5.0",
+      "badgeAccent": false,
+      "specialty": "Детский дерматолог, дерматолог, трихолог",
+      "roleFull": "Детский дерматолог, дерматолог, трихолог",
+      "experience": "Стаж 6 лет",
+      "profileMeta": "Клинический стаж: 6 лет • Рейтинг ПроДокторов 5.0 (46 отзывов)",
+      "specializationTitle": "Специализация:",
+      "specializationItems": [
+        "Аппаратная микровидеодиагностика волос и кожи головы (трихоскопия);",
+        "Диагностика и лечение диффузного и очагового выпадения волос;",
+        "Детский дерматологический прием (атопический дерматит, экзема, себорея);",
+        "Терапия акне и составление поддерживающего домашнего ухода."
+      ],
+      "educationTitle": "Образование:",
+      "educationText": "Ижевская государственная медицинская академия (2020, Педиатрия; 2022, ординатура по дерматовенерологии)."
+    }
+  ],
+  "services": {
+    "dermatology": [
+      {
+        "title": "Прием (осмотр, консультация) врача-дерматолога Морозова Э.З. первичный",
+        "desc": "Осмотр кожных покровов, сбор анамнеза, дерматоскопия элементов",
+        "price": "2 350 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) врача-дерматолога Морозова Э.З. повторный",
+        "desc": "Оценка динамики лечения, коррекция терапевтического плана",
+        "price": "1 850 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) врача-дерматолога Зарипова Р.Р. первичный",
+        "desc": "Первичная комплексная диагностика, дерматоскопия, индивидуальный протокол",
+        "price": "3 000 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) врача-дерматолога Зарипова Р.Р. повторный",
+        "desc": "Контрольный осмотр и мониторинг эффективности терапии",
+        "price": "2 500 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) врача-дерматолога Савина Т.С. первичный",
+        "desc": "Экспертный прием ведущего дерматолога, углубленный анализ клинической картины",
+        "price": "5 000 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) врача-дерматолога Савина Т.С. повторный",
+        "desc": "Экспертный контроль терапии и разработка противорецидивного плана",
+        "price": "4 500 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) врача-дерматолога Соколова Т.А. первичный",
+        "desc": "Сбор анамнеза, дерматоскопия, назначение доказательного лечения",
+        "price": "2 500 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) врача-дерматолога Соколова Т.А. повторный",
+        "desc": "Контрольный осмотр и оценка динамики состояния кожи",
+        "price": "2 000 ₽"
+      }
+    ],
+    "trichology": [
+      {
+        "title": "Прием (осмотр, консультация) врача-трихолога Соколова Т.А. первичный",
+        "desc": "Осмотр кожи волосистой части головы и структуры волос, составление плана обследования",
+        "price": "3 000 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) врача-трихолога Соколова Т.А. повторный",
+        "desc": "Оценка динамики роста волос, трихоскопический контроль эффективности терапии",
+        "price": "2 500 ₽"
+      },
+      {
+        "title": "Цифровая трихоскопия волосистой части головы",
+        "desc": "Аппаратное микроисследование плотности фолликулов и состояния волос на приборе Aramo SG",
+        "price": "2 800 ₽"
+      }
+    ],
+    "pediatric": [
+      {
+        "title": "Прием (осмотр, консультация) детского врача-дерматолога Соколова Т.А. первичный",
+        "desc": "Бережный осмотр детей с первых месяцев жизни, бережная диагностика без стресса",
+        "price": "2 500 ₽"
+      },
+      {
+        "title": "Прием (осмотр, консультация) детского врача-дерматолога Соколова Т.А. повторный",
+        "desc": "Контроль динамики выздоровления, коррекция наружной терапии и ухода",
+        "price": "2 000 ₽"
+      },
+      {
+        "title": "Удаление контагиозного моллюска у детей",
+        "desc": "Деликатное удаление единичных элементов с местной анестезией",
+        "price": "от 230 ₽"
+      },
+      {
+        "title": "Удаление новообразований у детей",
+        "desc": "Безопасное удаление кожных элементов по индивидуальным показаниям",
+        "price": "от 650 ₽"
+      },
+      {
+        "title": "Удаление бородавок у детей",
+        "desc": "Радиоволновое или криодеструктивное щадящее удаление",
+        "price": "от 900 ₽"
+      },
+      {
+        "title": "Удаление папиллом у детей",
+        "desc": "Атравматичное удаление вирусных элементов без повреждения окружающих тканей",
+        "price": "от 700 ₽"
+      },
+      {
+        "title": "Удаление родинок (невусов) у детей",
+        "desc": "Обязательная дерматоскопия и гистологический контроль",
+        "price": "от 1 400 ₽"
+      },
+      {
+        "title": "Лечение дерматита у детей",
+        "desc": "Диагностика и подбор терапии при атопическом, себорейном и контактном дерматите",
+        "price": "2 400 ₽"
+      },
+      {
+        "title": "Лечение акне и постакне у подростков",
+        "desc": "Комплексное ведение подростковых дерматозов без агрессивных методик",
+        "price": "2 400 ₽"
+      }
+    ],
+    "cosmetology": [
+      {
+        "title": "Консультация врача-косметолога первичная",
+        "desc": "Оценка состояния кожи, определение морфотипа старения, составление протокола",
+        "price": "2 400 ₽"
+      },
+      {
+        "title": "Повторный прием врача-косметолога",
+        "desc": "Контрольный осмотр и оценка динамики после эстетических манипуляций",
+        "price": "1 800 ₽"
+      },
+      {
+        "title": "Расширенный прием врача-косметолога (40 мин.)",
+        "desc": "Углубленная диагностика возрастных изменений и персональный бьюти-план",
+        "price": "3 900 ₽"
+      },
+      {
+        "title": "Консультация косметолога по подбору домашнего ухода",
+        "desc": "Анализ косметических средств, подбор активных компонентов доказательной косметики",
+        "price": "2 400 ₽"
+      },
+      {
+        "title": "Ультразвуковая и комбинированная чистка лица",
+        "desc": "Атравматичное очищение пор, себорегуляция и эксфолиация эпидермиса",
+        "price": "от 3 500 ₽"
+      },
+      {
+        "title": "Химические пилинги (поверхностные и срединные)",
+        "desc": "Обновление микрорельефа, осветление гиперпигментации и терапия постакне",
+        "price": "от 3 000 ₽"
+      },
+      {
+        "title": "Биоревитализация и мезотерапия",
+        "desc": "Глубокая гидратация, стимуляция неоколлагенеза и восстановление упругости",
+        "price": "от 6 500 ₽"
+      },
+      {
+        "title": "Ботулинотерапия (мимические морщины)",
+        "desc": "Прицельная миорелаксация активных зон с сохранением естественной мимики",
+        "price": "от 350 ₽/ед."
+      }
+    ],
+    "removal": [
+      {
+        "title": "Дерматоскопическое картирование невусов (родинки)",
+        "desc": "Осмотр подозрительных новообразований на цифровом дерматоскопе",
+        "price": "1 500 ₽"
+      },
+      {
+        "title": "Удаление папиллом (1 элемент)",
+        "desc": "Радиоволновой метод без ожогов и рубцов",
+        "price": "от 500 ₽"
+      },
+      {
+        "title": "Удаление бородавок (вульгарных, подошвенных)",
+        "desc": "Прицельное иссечение с коагуляцией сосудистого основания",
+        "price": "от 900 ₽"
+      },
+      {
+        "title": "Удаление родинок (невусов) на лице и теле",
+        "desc": "Атравматичное удаление с последующей гистологической верификацией",
+        "price": "от 1 500 ₽"
+      },
+      {
+        "title": "Удаление кератом и себорейных элементов",
+        "desc": "Быстрое удаление доброкачественных возрастных разрастаний кожи",
+        "price": "от 800 ₽"
+      },
+      {
+        "title": "Удаление гемангиом и сосудистых звездочек",
+        "desc": "Лазерная или радиоволновая коагуляция сосудистых мальформаций",
+        "price": "от 700 ₽"
+      },
+      {
+        "title": "Гистологическое исследование биопсийного материала",
+        "desc": "Лабораторный анализ удалённого образования",
+        "price": "2 000 ₽"
+      }
+    ]
+  },
+  "reviews": [
+    {
+      "author": "Алина М.",
+      "meta": "Пациент дерматолога • Яндекс Карты",
+      "text": "Обратилась к Татьяне Станиславовне Савина с застарелой проблемой кожи. Впервые доктор не стала назначать гору анализов, а четко определила диагноз и подобрала терапию. Через две недели увидела первые результаты!"
+    },
+    {
+      "author": "Екатерина С.",
+      "meta": "Пациент дерматолога • Яндекс Карты",
+      "text": "Очень благодарна клинике и доктору Савиной! Доказательный подход во всём: подробнейший осмотр на дерматоскопе, спокойные понятные объяснения без запугивания и лишних трат. Лучшая клиника в городе!"
+    },
+    {
+      "author": "Диана Р.",
+      "meta": "Детский прием • ПроДокторов",
+      "text": "Были с дочкой у Рушании Расиховны Зариповой. Три месяца никто не мог помочь, а здесь диагноз поставили моментально. На второй день лечения уже заметили улучшение на 50%!"
+    },
+    {
+      "author": "Мария П.",
+      "meta": "Детский приём • Яндекс Карты",
+      "text": "Приводили сына на осмотр к Татьяне Алексеевне Соколовой. Прекрасный детский дерматолог, моментально нашла контакт с ребенком, осмотр прошел в игровой форме и без слёз. Назначила бережное лечение."
+    },
+    {
+      "author": "Сергей В.",
+      "meta": "Пациент трихолога • 2ГИС",
+      "text": "Проходил трихоскопию у Татьяны Алексеевны Соколовой. Наглядно показали состояние фолликулов на экране аппарата, подобрали лечение без лишних процедур. Профессиональный подход!"
+    },
+    {
+      "author": "Гульнара Х.",
+      "meta": "Удаление новообразований • Яндекс Карты",
+      "text": "Проверяла родинки и удаляла невус у Эльвиры Зуферовны Морозовой. Опытный врач высшей категории, ювелирная работа радиоволновым методом, зажило быстро и без следа. Огромное спасибо!"
+    },
+    {
+      "author": "Алексей Н.",
+      "meta": "Пациент клиники • Яндекс Карты",
+      "text": "Клиника европейского уровня в Казани. Чистота, вежливые администраторы, приём строго по времени. Врачи руководствуются исключительно доказательной медициной. Однозначно рекомендую!"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Как подготовиться к приему дерматолога?",
+      "answer": "За 2–3 дня до визита не наносите лечебные мази, йод и зеленку. Перед осмотром лица не рекомендуется использовать декоративный макияж."
+    },
+    {
+      "question": "Нужно ли мыть голову перед трихоскопией?",
+      "answer": "Рекомендуется помыть голову за 24 часа до приема и не наносить укладочные средства и сухие шампуни, чтобы врач оценил естественную секрецию кожи."
+    },
+    {
+      "question": "С какого возраста принимаете детей?",
+      "answer": "Наши детские специалисты ведут прием малышей с первых дней жизни: атопический дерматит, младенческие гемангиомы, опрелости и аллергические высыпания."
+    },
+    {
+      "question": "Болезненно ли удаление родинок?",
+      "answer": "Процедура проводится под локальной анестезией ультратонкими иглами. Пациент ощущает только легкое прикосновение. Радиоволна мгновенно коагулирует сосуды."
+    }
+  ],
+  "licenses": [
+    {
+      "title": "Медицинская лицензия (Лист 1)",
+      "subtitle": "№ ЛО41-00000-16/00000000",
+      "image": "assets/license-1.svg"
+    },
+    {
+      "title": "Приложение к лицензии",
+      "subtitle": "Виды медицинской помощи",
+      "image": "assets/license-2.svg"
+    },
+    {
+      "title": "Санитарно-эпидемиологическое заключение",
+      "subtitle": "Соответствие нормам СанПиН",
+      "image": "assets/license-3.svg"
+    }
+  ]
+};
+    let currentCmsData = DEFAULT_CMS_DATA;
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function applyCmsContent(data) {
+      if (!data) return;
+      currentCmsData = data;
+
+      // 1. Clinic contacts & links
+      const clinic = data.clinic || {};
+      if (clinic.phone) {
+        document.querySelectorAll('a[href^="tel:"]').forEach(el => {
+          if (clinic.phoneHref) el.setAttribute('href', clinic.phoneHref);
+          const span = el.querySelector('span');
+          if (span) span.textContent = clinic.phone;
+          else el.textContent = clinic.phone;
+        });
+      }
+      if (clinic.telegram) {
+        document.querySelectorAll('a[href*="t.me/"]').forEach(el => el.setAttribute('href', clinic.telegram));
+      }
+      if (clinic.whatsapp) {
+        document.querySelectorAll('a[href*="wa.me/"]').forEach(el => el.setAttribute('href', clinic.whatsapp));
+      }
+      if (clinic.yandexReviewsUrl) {
+        const yaLink = document.getElementById('cms-yandex-reviews-link');
+        if (yaLink) yaLink.setAttribute('href', clinic.yandexReviewsUrl);
+      }
+      const addrEl = document.getElementById('cms-contacts-address');
+      if (addrEl && clinic.address) addrEl.textContent = clinic.address;
+      const addrNoteEl = document.getElementById('cms-contacts-address-note');
+      if (addrNoteEl && clinic.addressNote) addrNoteEl.textContent = clinic.addressNote;
+      const hoursEl = document.getElementById('cms-contacts-hours');
+      if (hoursEl && clinic.hours) hoursEl.textContent = clinic.hours;
+      const safetyLicEl = document.getElementById('cms-safety-license');
+      if (safetyLicEl && clinic.licenseNumber) {
+        safetyLicEl.textContent = `${clinic.licenseNumber} ${clinic.licenseIssued || ''}`.trim() + '.';
+      }
+      const footerContactsEl = document.getElementById('cms-footer-contacts');
+      if (footerContactsEl) {
+        footerContactsEl.innerHTML = `${escapeHtml(clinic.address || '')}<br>${escapeHtml(clinic.phone || '')}<br>${escapeHtml(clinic.hours || '')}`;
+      }
+      const footerLicEl = document.getElementById('cms-footer-license');
+      if (footerLicEl && clinic.licenseNumber) {
+        footerLicEl.textContent = `Медицинская лицензия ${clinic.licenseNumber}.`;
+      }
+
+      // 2. Hero section
+      const hero = data.hero || {};
+      const heroLoc = document.getElementById('cms-hero-badge-location');
+      if (heroLoc && hero.badgeLocation) heroLoc.textContent = hero.badgeLocation;
+      const heroPed = document.getElementById('cms-hero-badge-pediatric');
+      if (heroPed && hero.badgePediatric) heroPed.textContent = hero.badgePediatric;
+      const heroTitle = document.getElementById('cms-hero-title');
+      if (heroTitle && hero.title && heroTitle.dataset.wordsSplit !== 'true') {
+        heroTitle.textContent = hero.title;
+      }
+      const heroSub1 = document.getElementById('cms-hero-sub1');
+      if (heroSub1 && hero.subtitleLine1) heroSub1.textContent = hero.subtitleLine1;
+      const heroSub2 = document.getElementById('cms-hero-sub2');
+      if (heroSub2 && hero.subtitleLine2) heroSub2.textContent = hero.subtitleLine2;
+      const heroQuotePhoto = document.getElementById('cms-hero-quote-photo');
+      if (heroQuotePhoto && hero.quotePhoto) heroQuotePhoto.setAttribute('src', hero.quotePhoto);
+      const heroQuoteText = document.getElementById('cms-hero-quote-text');
+      if (heroQuoteText && hero.quoteText) heroQuoteText.textContent = hero.quoteText;
+      const heroQuoteAuthor = document.getElementById('cms-hero-quote-author');
+      if (heroQuoteAuthor && hero.quoteAuthor) heroQuoteAuthor.textContent = hero.quoteAuthor;
+      const heroQuoteRole = document.getElementById('cms-hero-quote-role');
+      if (heroQuoteRole && hero.quoteRole) heroQuoteRole.textContent = hero.quoteRole;
+
+      // 3. Home services cards
+      if (Array.isArray(data.homeServices) && data.homeServices.length > 0) {
+        const homeSrvGrid = document.getElementById('home-services-grid');
+        if (homeSrvGrid) {
+          const primary = data.homeServices[0];
+          const secondary = data.homeServices.slice(1);
+          const secondaryHtml = secondary.map(item => `
+            <div class="bg-surface border border-divider rounded-card p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group hover:border-terracotta/40 transition-all">
+              <div class="space-y-1">
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal leading-snug">${escapeHtml(item.title)}</h3>
+                <p class="content-body text-charcoal leading-relaxed typographed max-w-md">${escapeHtml(item.description)}</p>
+              </div>
+              <div class="shrink-0 text-right sm:text-right pt-2 sm:pt-0">
+                <span class="block font-bold text-charcoal text-sm sm:text-base mb-1">${escapeHtml(item.priceFrom)}</span>
+                <a href="#services" onclick="navigateTo(event, 'services')" class="text-xs sm:text-sm font-semibold text-terracotta hover:underline">Подробнее →</a>
+              </div>
+            </div>
+          `).join('');
+
+          homeSrvGrid.innerHTML = `
+            <div class="md:col-span-12 lg:col-span-6 bg-surface border border-divider rounded-card overflow-hidden flex flex-col justify-between group hover:border-terracotta/40 transition-all">
+              <div class="h-64 sm:h-72 w-full overflow-hidden relative">
+                <img src="${escapeHtml(primary.image || 'assets/service-dermatology.jpg')}" alt="${escapeHtml(primary.title)}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-6 right-6 text-white">
+                  <h3 class="font-heading font-extrabold text-2xl sm:text-3xl text-white leading-tight">${escapeHtml(primary.title)}</h3>
+                </div>
+              </div>
+              <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                <p class="content-body text-charcoal leading-relaxed typographed">${escapeHtml(primary.description)}</p>
+                <div class="pt-4 border-t border-divider flex items-center justify-between">
+                  <span class="font-bold text-charcoal text-sm sm:text-base">${escapeHtml(primary.priceFrom)}</span>
+                  <a href="#services" onclick="navigateTo(event, 'services')" class="text-xs sm:text-sm font-semibold text-terracotta hover:underline">Подробнее об услугах →</a>
+                </div>
+              </div>
+            </div>
+            <div class="md:col-span-12 lg:col-span-6 flex flex-col gap-6 justify-between">
+              ${secondaryHtml}
+            </div>
+          `;
+        }
+      }
+
+      // 4. Doctors (Home grid, Catalog grid, Individual doctor pages, Modal select)
+      if (Array.isArray(data.doctors) && data.doctors.length > 0) {
+        const homeDocGrid = document.getElementById('home-doctors-grid');
+        if (homeDocGrid) {
+          homeDocGrid.innerHTML = data.doctors.map(doc => `
+            <div class="doctor-card w-[78%] sm:w-auto shrink-0 sm:shrink snap-start bg-surface border border-divider rounded-card p-4 hover:border-terracotta/40 transition-colors flex flex-col justify-between group">
+              <a href="#doctor-${escapeHtml(doc.slug)}" onclick="navigateTo(event, 'doctor-${escapeHtml(doc.slug)}')" class="block">
+                <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-3.5 relative">
+                  <img src="${escapeHtml(doc.photo)}" alt="${escapeHtml(doc.name)}" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+                  ${doc.badge ? `<span class="absolute top-2.5 right-2.5 px-2 py-0.5 ${doc.badgeAccent ? 'bg-terracotta' : 'bg-charcoal/80 backdrop-blur-sm'} text-white text-[10px] font-bold rounded-btn">${escapeHtml(doc.badge)}</span>` : ''}
+                </div>
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                  ${escapeHtml(doc.name)}
+                </h3>
+                <p class="text-[16px] text-charcoal mt-1.5 leading-snug">${escapeHtml(doc.specialty)}</p>
+                <div class="mt-2.5 text-xs sm:text-sm font-semibold text-terracotta">
+                  ${escapeHtml(doc.experience)}
+                </div>
+              </a>
+              <div class="mt-4">
+                <button onclick="openBookingModal('${escapeHtml(doc.shortName || doc.name)}')" class="btn-action w-full min-h-[46px] py-3 px-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                  <span>Записаться к врачу</span>
+                  <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        const catDocGrid = document.getElementById('catalog-doctors-grid');
+        if (catDocGrid) {
+          catDocGrid.innerHTML = data.doctors.map(doc => `
+            <div class="bg-surface border border-divider rounded-card p-4 flex flex-col justify-between">
+              <a href="#doctor-${escapeHtml(doc.slug)}" onclick="navigateTo(event, 'doctor-${escapeHtml(doc.slug)}')" class="block group">
+                <div class="aspect-[4/4] rounded-card overflow-hidden bg-canvas mb-4">
+                  <img src="${escapeHtml(doc.photo)}" alt="${escapeHtml(doc.name)}" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300">
+                </div>
+                <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal group-hover:text-terracotta transition-colors leading-snug">
+                  ${escapeHtml(doc.name)}
+                </h3>
+                <p class="text-[16px] text-charcoal mt-1.5">${escapeHtml(doc.specialty)}</p>
+                <p class="text-xs sm:text-sm font-semibold text-terracotta mt-1">${escapeHtml(doc.experience)}</p>
+              </a>
+              <div class="mt-4">
+                <button onclick="openBookingModal('${escapeHtml(doc.shortName || doc.name)}')" class="btn-action w-full min-h-[46px] py-3 px-3 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn text-sm sm:text-base font-semibold flex items-center justify-center gap-2 transition-colors">
+                  <span>Записаться к врачу</span>
+                  <i class="ph ph-arrow-right btn-arrow text-lg"></i>
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        const docPagesContainer = document.getElementById('doctor-pages-container');
+        if (docPagesContainer) {
+          const activeHash = (window.location.hash || '').replace(/^#/, '');
+          docPagesContainer.innerHTML = data.doctors.map(doc => {
+            const pageId = 'doctor-' + doc.slug;
+            const isActive = activeHash === pageId ? ' active-page' : '';
+            const specLis = (doc.specializationItems || []).map(item => {
+              const text = typeof item === 'string' ? item : (item.item || '');
+              return `<li>${escapeHtml(text)}</li>`;
+            }).join('');
+            return `
+              <div id="page-${escapeHtml(pageId)}" class="page-view${isActive}">
+                <section class="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 pt-[140px] lg:pt-[170px] pb-[100px] lg:pb-[150px]">
+                  <nav class="flex items-center gap-2 text-xs sm:text-sm text-charcoal/80 mb-6">
+                    <a href="#doctors" onclick="navigateTo(event, 'doctors')" class="hover:text-terracotta">Врачи</a>
+                    <i class="ph ph-caret-right"></i>
+                    <span class="text-charcoal font-semibold">${escapeHtml(doc.shortName || doc.name)}</span>
+                  </nav>
+                  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start bg-surface border border-divider rounded-card p-6 sm:p-8">
+                    <div class="md:col-span-4">
+                      <div class="aspect-[4/5] rounded-card overflow-hidden bg-canvas mb-4 border border-divider">
+                        <img src="${escapeHtml(doc.photo)}" alt="${escapeHtml(doc.name)}" class="w-full h-full object-cover object-top">
+                      </div>
+                      <button onclick="openBookingModal('${escapeHtml(doc.shortName || doc.name)}')" class="btn-action w-full py-3.5 px-5 bg-terracotta hover:bg-terracotta-dark text-white rounded-btn font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors">
+                        <span>Записаться к врачу</span>
+                        <i class="ph ph-arrow-right btn-arrow"></i>
+                      </button>
+                    </div>
+                    <div class="md:col-span-8 space-y-6">
+                      <div>
+                        <h1 class="text-2xl sm:text-4xl font-extrabold text-charcoal">${escapeHtml(doc.name)}</h1>
+                        <p class="text-sm sm:text-base text-terracotta font-semibold mt-1">${escapeHtml(doc.roleFull || doc.specialty)}</p>
+                        <p class="text-xs sm:text-sm text-charcoal/80 mt-0.5">${escapeHtml(doc.profileMeta || doc.experience)}</p>
+                      </div>
+                      <div class="space-y-3">
+                        <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal leading-snug">${escapeHtml(doc.specializationTitle || 'Специализация:')}</h3>
+                        <ul class="content-body text-charcoal space-y-1.5 list-disc list-inside typographed">
+                          ${specLis}
+                        </ul>
+                      </div>
+                      <div class="space-y-3 pt-4 border-t border-divider">
+                        <h3 class="font-heading font-bold text-2xl sm:text-3xl text-charcoal leading-snug">${escapeHtml(doc.educationTitle || 'Образование:')}</h3>
+                        <p class="content-body text-charcoal leading-relaxed typographed">${escapeHtml(doc.educationText || '')}</p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            `;
+          }).join('');
+        }
+
+        const docSelect = document.getElementById('modal-doctor-select');
+        if (docSelect) {
+          const prevVal = docSelect.value;
+          docSelect.innerHTML = '<option value="Любой специалист">Любой свободный специалист</option>' +
+            data.doctors.map(doc => `<option value="${escapeHtml(doc.shortName || doc.name)}">${escapeHtml(doc.bookingOptionLabel || doc.name)}</option>`).join('');
+          if (prevVal) docSelect.value = prevVal;
+        }
+      }
+
+      // 5. Services catalog
+      if (data.services && typeof servicesData !== 'undefined') {
+        Object.keys(data.services).forEach(catKey => {
+          if (Array.isArray(data.services[catKey])) {
+            servicesData[catKey] = data.services[catKey];
+          }
+        });
+        if (typeof switchServiceCategory === 'function') {
+          switchServiceCategory(currentServiceCategory || 'dermatology');
+        }
+      }
+
+      // 6. Reviews slider
+      if (Array.isArray(data.reviews) && data.reviews.length > 0) {
+        const reviewTrack = document.getElementById('review-track');
+        if (reviewTrack) {
+          reviewTrack.innerHTML = data.reviews.map(rev => `
+            <div class="review-slide p-6 bg-surface border border-divider rounded-card flex flex-col justify-between">
+              <div>
+                <div class="text-terracotta text-2xl font-serif mb-2 leading-none">“</div>
+                <p class="content-body text-charcoal leading-relaxed mb-4 typographed">${escapeHtml(rev.text)}</p>
+              </div>
+              <div class="pt-3 border-t border-divider">
+                <p class="text-xs sm:text-sm font-bold text-charcoal">${escapeHtml(rev.author)}</p>
+                <p class="text-[11px] text-charcoal/80">${escapeHtml(rev.meta)}</p>
+              </div>
+            </div>
+          `).join('');
+          if (typeof renderReviewDots === 'function') {
+            renderReviewDots();
+            setReviewSlide(0);
+          }
+        }
+      }
+
+      // 7. FAQ two-column grid
+      if (Array.isArray(data.faq) && data.faq.length > 0) {
+        const faqGrid = document.getElementById('cms-faq-grid');
+        if (faqGrid) {
+          const col1 = [];
+          const col2 = [];
+          data.faq.forEach((item, idx) => {
+            if (idx % 2 === 0) col1.push(item);
+            else col2.push(item);
+          });
+          const renderFaqCol = (items) => items.map(item => `
+            <div class="faq-item bg-surface border border-divider rounded-card p-4 cursor-pointer hover:bg-[#E2DDD5] transition-colors" onclick="toggleFaq(this)">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex-grow pr-3">
+                  <span class="font-heading font-bold text-base sm:text-lg text-charcoal block leading-snug">${escapeHtml(item.question)}</span>
+                  <div class="faq-desc content-body text-charcoal typographed"><div class="faq-desc-inner">${escapeHtml(item.answer)}</div></div>
+                </div>
+                <div class="faq-icon w-9 h-9 sm:w-10 sm:h-10 rounded-btn bg-canvas border border-divider flex items-center justify-center shrink-0 transition-transform duration-200 mt-0.5">
+                  <i class="ph ph-plus text-base sm:text-lg text-charcoal font-bold"></i>
+                </div>
+              </div>
+            </div>
+          `).join('');
+          faqGrid.innerHTML = `
+            <div class="space-y-4">${renderFaqCol(col1)}</div>
+            <div class="space-y-4">${renderFaqCol(col2)}</div>
+          `;
+        }
+      }
+
+      // 8. Licenses grid
+      if (Array.isArray(data.licenses) && data.licenses.length > 0) {
+        const licGrid = document.getElementById('cms-licenses-grid');
+        if (licGrid) {
+          licGrid.innerHTML = data.licenses.map(lic => `
+            <div class="bg-surface border border-divider rounded-card p-4 space-y-3">
+              <div class="aspect-[3/4] bg-white rounded-card border border-divider overflow-hidden flex items-center justify-center">
+                <img src="${escapeHtml(lic.image)}" alt="${escapeHtml(lic.title)}" class="w-full h-full object-cover">
+              </div>
+              <p class="text-xs sm:text-sm font-bold text-charcoal">${escapeHtml(lic.title)}</p>
+              <p class="text-[11px] text-charcoal/80">${escapeHtml(lic.subtitle)}</p>
+            </div>
+          `).join('');
+        }
+      }
+
+      if (typeof typographRussianText === 'function') {
+        typographRussianText(document.body);
+      }
+    }
+
+    async function loadCmsContent() {
+      applyCmsContent(DEFAULT_CMS_DATA);
+      if (window.location.protocol === 'file:') return;
+      try {
+        const res = await fetch('./content.json?v=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const remoteData = await res.json();
+          applyCmsContent(remoteData);
+          handleHashRoute();
+        }
+      } catch (err) {
+        // Fallback to DEFAULT_CMS_DATA seamlessly
+      }
+    }
+
+    async function handleBookingSubmit(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('modal-name-input');
+      const phoneInput = document.getElementById('modal-phone-input');
+      const select = document.getElementById('modal-doctor-select');
+      const successText = document.getElementById('booking-success-text');
+      const formView = document.getElementById('booking-form-view');
+      const successView = document.getElementById('booking-success-view');
+      const form = document.getElementById('booking-form');
+      const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+
+      const patientName = nameInput ? nameInput.value.trim() : '';
+      const patientPhone = phoneInput ? phoneInput.value.trim() : '';
+      const specialist = select && select.value !== 'Любой специалист' ? select.value : '';
+      const web3Key = (currentCmsData && currentCmsData.clinic && currentCmsData.clinic.web3formsKey) ? currentCmsData.clinic.web3formsKey.trim() : '';
+
+      if (web3Key) {
+        if (submitBtn) submitBtn.disabled = true;
+        try {
+          await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              access_key: web3Key,
+              subject: 'Новая заявка на приём — ' + (currentCmsData.clinic.name || 'Савина Клиник'),
+              from_name: currentCmsData.clinic.name || 'Савина Клиник',
+              name: patientName,
+              phone: patientPhone,
+              doctor: specialist || 'Любой свободный специалист',
+              consent: 'Согласие на обработку ПДн (152-ФЗ) получено'
+            })
+          });
+        } catch (err) {}
+        if (submitBtn) submitBtn.disabled = false;
+      }
+
+      if (successText) {
+        const greeting = patientName ? `${patientName}, спасибо` : 'Спасибо';
+        const specNote = specialist ? ` к специалисту (${specialist})` : '';
+        successText.textContent = `${greeting}! Ваша заявка на приём${specNote} принята. Администратор свяжется с вами в течение 10 минут.`;
+        if (typeof typographRussianText === 'function') {
+          typographRussianText(successText);
+        }
+      }
+
+      if (form) form.reset();
+      if (formView && successView) {
+        formView.classList.add('hidden');
+        successView.classList.remove('hidden');
+      }
+    }
+
+    function splitHeadingIntoWords(heading) {
+      if (!heading) return [];
+      if (heading.dataset.wordsSplit === 'true') {
+        return Array.from(heading.querySelectorAll('.word-reveal'));
+      }
+
+      const rawText = heading.textContent.replace(/\s+/g, ' ').trim();
+      // Разделяем по обычным пробелам, сохраняя связки с неразрывным пробелом (\u00A0),
+      // чтобы предлоги не отрывались от следующего слова, но каждое слово оборачиваем в отдельный .word-reveal
+      const groups = rawText.split(' ');
+      heading.innerHTML = '';
+
+      groups.forEach((group, gIdx) => {
+        if (group.includes('\u00A0')) {
+          const groupSpan = document.createElement('span');
+          groupSpan.className = 'word-group';
+          const subWords = group.split('\u00A0');
+          subWords.forEach((subWord, sIdx) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'word-reveal';
+            wordSpan.textContent = subWord;
+            groupSpan.appendChild(wordSpan);
+            if (sIdx < subWords.length - 1) {
+              groupSpan.appendChild(document.createTextNode('\u00A0'));
+            }
+          });
+          heading.appendChild(groupSpan);
+        } else {
+          const wordSpan = document.createElement('span');
+          wordSpan.className = 'word-reveal';
+          wordSpan.textContent = group;
+          heading.appendChild(wordSpan);
+        }
+        if (gIdx < groups.length - 1) {
+          heading.appendChild(document.createTextNode(' '));
+        }
+      });
+
+      heading.dataset.wordsSplit = 'true';
+      return Array.from(heading.querySelectorAll('.word-reveal'));
+    }
+
+    function animateHeadingBlurWords(heading, useScrollTrigger = true) {
+      if (!window.gsap || !heading) return;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      const words = splitHeadingIntoWords(heading);
+      if (words.length === 0) return;
+
+      const tweenVars = {
+        opacity: 1,
+        filter: 'blur(0px)',
+        y: 0,
+        duration: 0.78,
+        stagger: 0.085,
+        ease: 'power2.out',
+        clearProps: 'filter,transform,opacity'
+      };
+
+      if (useScrollTrigger && window.ScrollTrigger) {
+        tweenVars.scrollTrigger = {
+          trigger: heading,
+          start: 'top 88%',
+          once: true
+        };
+      }
+
+      gsap.fromTo(
+        words,
+        { opacity: 0, filter: 'blur(12px)', y: 10 },
+        tweenVars
+      );
+    }
+
+    function initAnimations() {
+      if (!window.gsap) return;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+
+      gsap.context(() => {
+        // 1. Поочерёдное проявление слов из размытия у H1 (как на massage-romanova.ru)
+        const heroH1 = document.querySelector('#page-home h1');
+        if (heroH1) {
+          animateHeadingBlurWords(heroH1, false);
+        }
+
+        if (!window.ScrollTrigger) return;
+
+        // 2. Поочерёдное проявление слов из размытия у заголовков H2 (в мобильной версии блок приёма без анимации)
+        gsap.utils.toArray('#page-home h2').forEach((heading) => {
+          if (heading.closest('#section-reception') && window.innerWidth < 768) return;
+          animateHeadingBlurWords(heading, true);
+        });
+
+        // 3. Карточки с врачами: плавное появление из непрозрачности слева направо
+        const doctorCards = gsap.utils.toArray('#section-doctors .doctor-card');
+        if (doctorCards.length > 0) {
+          gsap.fromTo(
+            doctorCards,
+            { opacity: 0, x: -32 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.85,
+              stagger: 0.14,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: '#section-doctors',
+                start: 'top 82%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 4. Карточки диагностического оборудования: плавное появление из непрозрачности слева направо
+        const equipmentCards = gsap.utils.toArray('#section-equipment .equipment-card');
+        if (equipmentCards.length > 0) {
+          gsap.fromTo(
+            equipmentCards,
+            { opacity: 0, x: -32 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.85,
+              stagger: 0.16,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: '#section-equipment',
+                start: 'top 82%',
+                once: true
+              }
+            }
+          );
+        }
+
+        // 5. Блок «Как проходит приём»: параллакс и анимация этапов только на планшетах и десктопах (на мобильных без анимации)
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 768px)', () => {
+          const receptionSection = document.getElementById('section-reception');
+          if (!receptionSection) return;
+
+          const bgLayer = receptionSection.querySelector('.reception-bg-layer');
+          if (bgLayer) {
+            gsap.fromTo(
+              bgLayer,
+              { yPercent: -10, scale: 1.12 },
+              {
+                yPercent: 10,
+                scale: 1.12,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: receptionSection,
+                  start: 'top bottom',
+                  end: 'bottom top',
+                  scrub: 0.6
+                }
+              }
+            );
+          }
+
+          const receptionSubtitle = receptionSection.querySelector('.reception-subtitle');
+          const receptionLine = receptionSection.querySelector('.reception-line');
+          const receptionDots = gsap.utils.toArray('#section-reception .reception-dot');
+          const receptionSteps = gsap.utils.toArray('#section-reception .reception-step');
+
+          const recTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: receptionSection,
+              start: 'top 74%',
+              once: true
+            }
+          });
+
+          if (receptionSubtitle) {
+            recTl.fromTo(
+              receptionSubtitle,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', clearProps: 'transform,opacity' },
+              0.1
+            );
+          }
+
+          if (receptionLine && window.innerWidth >= 1024) {
+            recTl.fromTo(
+              receptionLine,
+              { scaleX: 0, transformOrigin: 'left center' },
+              { scaleX: 1, duration: 1.1, ease: 'power2.inOut', clearProps: 'transform' },
+              0.2
+            );
+          }
+
+          if (receptionDots.length > 0 && window.innerWidth >= 1024) {
+            recTl.fromTo(
+              receptionDots,
+              { scale: 0, opacity: 0 },
+              { scale: 1, opacity: 1, duration: 0.45, stagger: 0.14, ease: 'back.out(1.7)', clearProps: 'transform,opacity' },
+              0.25
+            );
+          }
+
+          if (receptionSteps.length > 0) {
+            recTl.fromTo(
+              receptionSteps,
+              { opacity: 0, y: 24 },
+              { opacity: 1, y: 0, duration: 0.75, stagger: 0.14, ease: 'power3.out', clearProps: 'transform,opacity' },
+              window.innerWidth >= 1024 ? 0.3 : 0.2
+            );
+          }
+        });
+      });
+    }
+
+    function handleHashRoute() {
+      const hash = (window.location.hash || '').replace(/^#/, '');
+      if (hash && document.getElementById('page-' + hash)) {
+        navigateTo(null, hash, false);
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashRoute);
+
+    function scrollToTop() {
+      smoothScrollToY(0);
+    }
+
+    function initScrollToTopButton() {
+      const btn = document.getElementById('scroll-to-top-btn');
+      if (!btn) return;
+      function toggleVisibility() {
+        const y = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+        if (y > 450) {
+          btn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+          btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        } else {
+          btn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+          btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        }
+      }
+      window.addEventListener('scroll', toggleVisibility, { passive: true });
+      toggleVisibility();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      handleHashRoute();
+      typographRussianText();
+      initSmoothScroll();
+      initScrollToTopButton();
+      initBeforeAfter();
+      renderReviewDots();
+      setReviewSlide(0);
+      initReviewSwipe();
+      const origSwitchServiceCategory = switchServiceCategory;
+    switchServiceCategory = function(categoryKey) {
+      origSwitchServiceCategory(categoryKey);
+      const container = document.getElementById('services-cards-container');
+      if (container) typographRussianText(container);
+    };
+    loadCmsContent();
+      handleHashRoute();
+      initAnimations();
+    });
+  
+    // База данных услуг клиники Савина Клиник
+    const servicesData = {
+      dermatology: [
+        { title: "Прием (осмотр, консультация) врача-дерматолога Морозова Э.З. первичный", desc: "Осмотр кожных покровов, сбор анамнеза, дерматоскопия элементов", price: "2 350 ₽" },
+        { title: "Прием (осмотр, консультация) врача-дерматолога Морозова Э.З. повторный", desc: "Оценка динамики лечения, коррекция терапевтического плана", price: "1 850 ₽" },
+        { title: "Прием (осмотр, консультация) врача-дерматолога Зарипова Р.Р. первичный", desc: "Первичная комплексная диагностика, дерматоскопия, индивидуальный протокол", price: "3 000 ₽" },
+        { title: "Прием (осмотр, консультация) врача-дерматолога Зарипова Р.Р. повторный", desc: "Контрольный осмотр и мониторинг эффективности терапии", price: "2 500 ₽" },
+        { title: "Прием (осмотр, консультация) врача-дерматолога Савина Т.С. первичный", desc: "Экспертный прием ведущего дерматолога, углубленный анализ клинической картины", price: "5 000 ₽" },
+        { title: "Прием (осмотр, консультация) врача-дерматолога Савина Т.С. повторный", desc: "Экспертный контроль терапии и разработка противорецидивного плана", price: "4 500 ₽" },
+        { title: "Прием (осмотр, консультация) врача-дерматолога Соколова Т.А. первичный", desc: "Сбор анамнеза, дерматоскопия, назначение доказательного лечения", price: "2 500 ₽" },
+        { title: "Прием (осмотр, консультация) врача-дерматолога Соколова Т.А. повторный", desc: "Контрольный осмотр и оценка динамики состояния кожи", price: "2 000 ₽" }
+      ],
+      trichology: [
+        { title: "Прием (осмотр, консультация) врача-трихолога Соколова Т.А. первичный", desc: "Осмотр кожи волосистой части головы и структуры волос, составление плана обследования", price: "3 000 ₽" },
+        { title: "Прием (осмотр, консультация) врача-трихолога Соколова Т.А. повторный", desc: "Оценка динамики роста волос, трихоскопический контроль эффективности терапии", price: "2 500 ₽" },
+        { title: "Цифровая трихоскопия волосистой части головы", desc: "Аппаратное микроисследование плотности фолликулов и состояния волос на приборе Aramo SG", price: "2 800 ₽" }
+      ],
+      pediatric: [
+        { title: "Прием (осмотр, консультация) детского врача-дерматолога Соколова Т.А. первичный", desc: "Бережный осмотр детей с первых месяцев жизни, бережная диагностика без стресса", price: "2 500 ₽" },
+        { title: "Прием (осмотр, консультация) детского врача-дерматолога Соколова Т.А. повторный", desc: "Контроль динамики выздоровления, коррекция наружной терапии и ухода", price: "2 000 ₽" },
+        { title: "Удаление контагиозного моллюска у детей", desc: "Деликатное удаление единичных элементов с местной анестезией", price: "от 230 ₽" },
+        { title: "Удаление новообразований у детей", desc: "Безопасное удаление кожных элементов по индивидуальным показаниям", price: "от 650 ₽" },
+        { title: "Удаление бородавок у детей", desc: "Радиоволновое или криодеструктивное щадящее удаление", price: "от 900 ₽" },
+        { title: "Удаление папиллом у детей", desc: "Атравматичное удаление вирусных элементов без повреждения окружающих тканей", price: "от 700 ₽" },
+        { title: "Удаление родинок (невусов) у детей", desc: "Обязательная дерматоскопия и гистологический контроль", price: "от 1 400 ₽" },
+        { title: "Лечение дерматита у детей", desc: "Диагностика и подбор терапии при атопическом, себорейном и контактном дерматите", price: "2 400 ₽" },
+        { title: "Лечение акне и постакне у подростков", desc: "Комплексное ведение подростковых дерматозов без агрессивных методик", price: "2 400 ₽" }
+      ],
+      cosmetology: [
+        { title: "Консультация врача-косметолога первичная", desc: "Оценка состояния кожи, определение морфотипа старения, составление протокола", price: "2 400 ₽" },
+        { title: "Повторный прием врача-косметолога", desc: "Контрольный осмотр и оценка динамики после эстетических манипуляций", price: "1 800 ₽" },
+        { title: "Расширенный прием врача-косметолога (40 мин.)", desc: "Углубленная диагностика возрастных изменений и персональный бьюти-план", price: "3 900 ₽" },
+        { title: "Консультация косметолога по подбору домашнего ухода", desc: "Анализ косметических средств, подбор активных компонентов доказательной косметики", price: "2 400 ₽" },
+        { title: "Ультразвуковая и комбинированная чистка лица", desc: "Атравматичное очищение пор, себорегуляция и эксфолиация эпидермиса", price: "от 3 500 ₽" },
+        { title: "Химические пилинги (поверхностные и срединные)", desc: "Обновление микрорельефа, осветление гиперпигментации и терапия постакне", price: "от 3 000 ₽" },
+        { title: "Биоревитализация и мезотерапия", desc: "Глубокая гидратация, стимуляция неоколлагенеза и восстановление упругости", price: "от 6 500 ₽" },
+        { title: "Ботулинотерапия (мимические морщины)", desc: "Прицельная миорелаксация активных зон с сохранением естественной мимики", price: "от 350 ₽/ед." }
+      ],
+      removal: [
+        { title: "Дерматоскопическое картирование невусов (родинки)", desc: "Осмотр подозрительных новообразований на цифровом дерматоскопе", price: "1 500 ₽" },
+        { title: "Удаление папиллом (1 элемент)", desc: "Радиоволновой метод без ожогов и рубцов", price: "от 500 ₽" },
+        { title: "Удаление бородавок (вульгарных, подошвенных)", desc: "Прицельное иссечение с коагуляцией сосудистого основания", price: "от 900 ₽" },
+        { title: "Удаление родинок (невусов) на лице и теле", desc: "Атравматичное удаление с последующей гистологической верификацией", price: "от 1 500 ₽" },
+        { title: "Удаление кератом и себорейных элементов", desc: "Быстрое удаление доброкачественных возрастных разрастаний кожи", price: "от 800 ₽" },
+        { title: "Удаление гемангиом и сосудистых звездочек", desc: "Лазерная или радиоволновая коагуляция сосудистых мальформаций", price: "от 700 ₽" },
+        { title: "Гистологическое исследование биопсийного материала", desc: "Лабораторный анализ удалённого образования", price: "2 000 ₽" }
+      ]
+    };
+
+    let currentServiceCategory = "dermatology";
+    function switchServiceCategory(categoryKey) {
+      currentServiceCategory = categoryKey;
+      document.querySelectorAll('.service-tab').forEach(tab => {
+        tab.className = "service-tab px-5 py-2.5 rounded-[12px] font-medium text-sm sm:text-base transition-all border border-dashed border-[#5A554E]/40 text-charcoal hover:border-terracotta bg-transparent";
+      });
+      const activeTab = document.getElementById('tab-' + categoryKey);
+      if (activeTab) {
+        activeTab.className = "service-tab px-5 py-2.5 rounded-[12px] font-semibold text-sm sm:text-base transition-all bg-terracotta text-white shadow-sm";
+      }
+
+      const container = document.getElementById('services-cards-container');
+      if (!container || !servicesData[categoryKey]) return;
+
+      const items = servicesData[categoryKey];
+      container.innerHTML = items.map(item => `
+        <div class="bg-[#E8E4DC]/60 border border-divider rounded-[16px] p-5 sm:p-6 flex items-center justify-between gap-4">
+          <div>
+            <h4 class="font-heading font-bold text-lg sm:text-xl text-charcoal leading-snug">
+              ${item.title}
+            </h4>
+            <p class="text-sm sm:text-base text-[#5A554E] mt-1 leading-relaxed">
+              ${item.desc}
+            </p>
+          </div>
+          <div class="flex items-center shrink-0">
+            <span class="font-heading font-bold sm:font-extrabold text-lg sm:text-2xl text-charcoal whitespace-nowrap">
+              ${item.price}
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    switchServiceCategory("dermatology");
+  </script>
+</body>
+</html>
