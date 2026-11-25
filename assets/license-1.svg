@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <rect width="600" height="800" fill="#FAF8F5"/>
+  <rect x="28" y="28" width="544" height="744" rx="12" fill="none" stroke="#B85D46" stroke-width="3"/>
+  <rect x="40" y="40" width="520" height="720" rx="8" fill="none" stroke="#DCD7CE" stroke-width="1.5"/>
+  <circle cx="300" cy="115" r="32" fill="#E8E4DC" stroke="#B85D46" stroke-width="2"/>
+  <path d="M300 95v40M280 115h40" stroke="#B85D46" stroke-width="4" stroke-linecap="round"/>
+  <text x="300" y="182" font-family="sans-serif" font-size="14" font-weight="700" fill="#5A554E" text-anchor="middle" letter-spacing="2">МИНИСТЕРСТВО ЗДРАВООХРАНЕНИЯ</text>
+  <text x="300" y="204" font-family="sans-serif" font-size="13" font-weight="600" fill="#5A554E" text-anchor="middle" letter-spacing="1.5">РЕСПУБЛИКИ ТАТАРСТАН</text>
+  <line x1="120" y1="230" x2="480" y2="230" stroke="#DCD7CE" stroke-width="1.5"/>
+  <text x="300" y="280" font-family="sans-serif" font-size="24" font-weight="800" fill="#2D2A26" text-anchor="middle">МЕДИЦИНСКАЯ ЛИЦЕНЗИЯ</text>
+  <text x="300" y="312" font-family="sans-serif" font-size="16" font-weight="700" fill="#B85D46" text-anchor="middle">№ ЛО41-01181-16/00345678 • Лист 1</text>
+  <text x="300" y="352" font-family="sans-serif" font-size="15" font-weight="600" fill="#2D2A26" text-anchor="middle">Выписка из реестра лицензий</text>
+  <g fill="#E8E4DC">
+    <rect x="80" y="395" width="440" height="14" rx="4"/>
+    <rect x="80" y="423" width="400" height="14" rx="4"/>
+    <rect x="80" y="451" width="420" height="14" rx="4"/>
+    <rect x="80" y="479" width="360" height="14" rx="4"/>
+    <rect x="80" y="520" width="440" height="14" rx="4"/>
+    <rect x="80" y="548" width="390" height="14" rx="4"/>
+  </g>
+  <circle cx="430" cy="655" r="46" fill="none" stroke="#B85D46" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="430" y="652" font-family="sans-serif" font-size="10" font-weight="700" fill="#B85D46" text-anchor="middle">ЛЕЙМАН КЛИНИК</text>
+  <text x="430" y="667" font-family="sans-serif" font-size="9" fill="#5A554E" text-anchor="middle">г. Казань</text>
+  <text x="90" y="662" font-family="sans-serif" font-size="13" font-weight="600" fill="#5A554E">ул. Волкова, д. 22</text>
+</svg>
